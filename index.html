@@ -34,7 +34,7 @@ body::before{
 .search-input{ width:250px; }
 .profile-icon{ font-size:1.5rem; color:#fff; margin-right:10px; }
 .nav-link{ color:#fff; }
-.btn{ background:#343a40; color:#fff; }
+
 
 @media (max-width:767px){
   .navbar-nav{ flex-direction:row; }
@@ -55,6 +55,11 @@ body::before{
 .tab-content{
   width:100%; background:transparent; padding:30px;
   border-radius:0 0 15px 15px; box-shadow:0 4px 8px rgba(0,0,0,.05); margin-top:0;
+}
+.navbar .navbar-toggler,
+.btn-ghost[data-bs-toggle="offcanvas"]{
+  z-index:1060;
+  position:relative;
 }
 
 /* ===== Accordion / Specs ===== */
@@ -543,8 +548,10 @@ html, body{ overflow-x: hidden; }
   <div class="container-fluid px-3 px-lg-4">
     <!-- Brand -->
    
- <span class="brand-dot"></span> &nbsp;  
-      <span class="fw-extrabold">mmdrza <span class="text-gradient">shop</span></span>
+<a href="#" class="text-decoration-none text-white fw-extrabold logo-neon">
+  <span class="brand-dot"></span>&nbsp; mmdrza <span class="text-gradient">shop</span>
+</a>
+
 
     <!-- Toggler -->
     <button class="navbar-toggler shadow-none border-0" type="button"
@@ -612,6 +619,12 @@ html, body{ overflow-x: hidden; }
           <input type="text" class="form-control" placeholder="Search products…">
           <kbd class="shortcut d-none d-lg-inline">/</kbd>
         </div>
+<!-- کنار دکمه‌ی موبایل، همین‌جا بگذار -->
+<button class="btn btn-ghost d-none d-lg-inline-flex" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#megaOffcanvas"
+        aria-controls="megaOffcanvas" aria-label="Menu">
+  <i class="fa-solid fa-bars"></i>
+</button>
 
         <!-- Wishlist -->
         <a class="nav-icon" href="#" id="navWishlist">
@@ -634,9 +647,6 @@ html, body{ overflow-x: hidden; }
   </div>
 </nav>
 
-  <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#megaOffcanvas" aria-controls="megaOffcanvas" style="margin-top: 70px;">
-  <i class="fas fa-bars"></i>
-</button>
 
 <div class="offcanvas offcanvas-start mega-offcanvas" tabindex="-1" id="megaOffcanvas" aria-labelledby="megaOffcanvasLabel">
   <div class="offcanvas-header border-0">
@@ -871,13 +881,13 @@ html, body{ overflow-x: hidden; }
 
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="../download (7).jpg" class="d-block w-30" alt="slide 1">
+            <img src="../download (7).jpg" class="d-block w-100" alt="slide 1">
           </div>
           <div class="carousel-item">
-            <img src="../download (1).jpg" class="d-block w-30" alt="slide 2">
+            <img src="../download (1).jpg" class="d-block w-100" alt="slide 2">
           </div>
           <div class="carousel-item">
-            <img src="../download.jpg" class="d-block w-30" alt="slide 3">
+            <img src="../download.jpg" class="d-block w-100" alt="slide 3">
           </div>
         </div>
 
@@ -1485,17 +1495,19 @@ function handleAddToCart() {
    Reviews (Toast)
 ========================= */
 function submitReview(){
-  const name = $('#revName')?.value.trim();
-  const text = $('#revText')?.value.trim();
+  const form = document.querySelector('#comments form');
+  const name = document.getElementById('revName')?.value.trim();
+  const text = document.getElementById('revText')?.value.trim();
   if(!name || !text){ alert('Please fill name and comment.'); return; }
-  const toastEl = $('#reviewToast');
+  const toastEl = document.getElementById('reviewToast');
   if(window.bootstrap && toastEl){
     new bootstrap.Toast(toastEl, { delay: 2200 }).show();
   } else {
     alert('Your review was submitted ✅');
   }
-  document.querySelector('form[onsubmit]')?.reset();
+  form?.reset();            // ← مشخصاً همین فرم
 }
+
 
 /* =========================
    Auth (Sign in / up mock) + Welcome banner
@@ -1568,7 +1580,9 @@ function handleSignUp(e){
   const name = [first, last].filter(Boolean).join(' ') || email.split('@')[0] || 'User';
   localStorage.setItem(USER_KEY, JSON.stringify({ name, email }));
   hydrateUserBanner();
-  if (window.bootstrap?.Collapse) bootstrap.Collapse.getOrCreateInstance('#authPanel').hide?.();
+  const panelEl = document.getElementById('authPanel');
+if (window.bootstrap?.Collapse && panelEl) {
+  bootstrap.Collapse.getOrCreateInstance(panelEl).hide();
 
   const holder = document.createElement('div');
   holder.className='position-fixed bottom-0 end-0 p-3'; holder.style.zIndex=1080;
@@ -1605,5 +1619,6 @@ function togglePass(id, btn){
 
 </body>
 </html>
+
 
 
