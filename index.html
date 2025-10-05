@@ -465,6 +465,76 @@ body::before{
 .nav-links .nav-link .fa-table-cells{
   opacity:.92;
 }
+/* --- Navbar: فیکس‌تاپ روی موبایل از بالا نیاد روی محتوا --- */
+@media (max-width: 991.98px){
+  body{ padding-top: 72px; }        /* اگر ارتفاع نوار تو بیشتره 80-90 بذار */
+}
+
+/* ناوبار روی موبایل: محتوا بشکنه و اسکرول بخوره */
+.navbar .navbar-collapse {
+  max-height: 75vh;                 /* وقتی باز میشه، قد بگیره ولی از صفحه بیرون نزنه */
+  overflow-y: auto;
+  padding: .5rem 0;
+}
+
+/* ساعت، سرچ و آیکن‌ها روی موبایل جمع‌وجور بشن */
+@media (max-width: 767.98px){
+  #navClock{ display:none !important; }      /* حذف ساعت در xs/sm */
+  .nav-search{ width: 100%; }                /* سرچ تمام‌عرض */
+  .nav-search .form-control{ width: 100%; }  /* ورودی جمع‌وجور */
+  .nav-links .nav-link{
+    display:block; width:100%;
+    padding:.55rem .9rem; border-radius:8px;
+  }
+  .nav-links{ gap:.25rem; }                  /* فاصله کمتر بین لینک‌ها */
+}
+
+/* از بریدن محتوا جلوگیری کن؛ لینک‌ها بتونن سطر بعدی برن */
+.navbar-nav{ flex-wrap: wrap; }
+
+/* آیکن‌ها در یک خط جا نشدن؟ اجازه بده برن زیر هم */
+@media (max-width: 575.98px){
+  .nav-ultra .d-flex.align-items-center.gap-2,
+  .nav-ultra .d-flex.align-items-center.gap-2 > *{
+    flex: 1 1 auto;
+  }
+}
+
+/* Dropdown (Categories) روی موبایل شیشه‌ای ولی بزرگ نشه */
+@media (max-width: 991.98px){
+  .dropdown-menu.mega-menu{
+    min-width: auto;
+    width: 100%;
+    left: 0 !important; right: 0 !important;
+    transform: none !important;
+    margin-top: .5rem;
+  }
+}
+
+/* تصاویر همیشه ریسپانسیو */
+img, .carousel-item img{
+  max-width: 100%;
+  height: auto;
+}
+
+/* کاروسل: ارتفاع مناسب موبایل و بدون بریده شدن عکس */
+#carouselexample .carousel-item{
+  aspect-ratio: 16/9;
+  background: #0b1220;
+}
+#carouselexample .carousel-item img{
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: center;
+}
+
+/* دکمه‌ها و بَج‌ها کمی کوچک‌تر در موبایل */
+@media (max-width: 575.98px){
+  .btn-cta{ padding:.8rem 1rem; border-radius:10px; }
+  .badge-count{ min-width:18px; height:18px; font-size:.65rem; }
+}
+
+/* جلوگیری از افقی شدن اسکرول به خاطر عناصر خیلی عریض */
+html, body{ overflow-x: hidden; }
 
 	</style>
 </head>
@@ -1535,4 +1605,5 @@ function togglePass(id, btn){
 
 </body>
 </html>
+
 
