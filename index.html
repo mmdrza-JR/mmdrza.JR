@@ -24,9 +24,56 @@ body::before{
 ::-webkit-scrollbar-track{ background:#0f172a; border-radius:10px; }
 ::-webkit-scrollbar-thumb{ background:#0ea5e9; border-radius:10px; border:2px solid #0f172a; }
 ::-webkit-scrollbar-thumb:hover{ background:#3b82f6; }
+.navbar .navbar-toggler{ position:relative; z-index:1060; }
 
 /* ===== Navbar & basics (از کد خودت) ===== */
-.navbar-toggler{ background:#fff; color:#343a40; }
+/* اول این خط قدیمی رو حذف کن چون زشت می‌کنه:  .navbar-toggler{ background:#fff; color:#343a40; } */
+
+/* دکمه‌ی شیشه‌ای گرد */
+.nav-hamburger{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14)!important;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+  position:relative; z-index:1060;
+}
+.nav-hamburger:hover{ transform:translateY(-1px); box-shadow:0 10px 24px rgba(14,165,233,.25); }
+.nav-hamburger:active{ transform:translateY(0); }
+
+.nav-hamburger .bars{
+  position:relative; width:20px; height:14px; display:block;
+}
+.nav-hamburger .bar{
+  position:absolute; left:0; right:0; height:2px; border-radius:2px;
+  background:#e5e7eb; box-shadow:0 0 8px rgba(59,130,246,.45);
+  transition:transform .22s ease, opacity .18s ease, top .22s ease, background .2s ease;
+}
+.nav-hamburger .bar:nth-child(1){ top:0;    }
+.nav-hamburger .bar:nth-child(2){ top:6px;  }
+.nav-hamburger .bar:nth-child(3){ top:12px; }
+
+/* وقتی منو باز شد → انیمیشن به X */
+.nav-hamburger[aria-expanded="true"] .bar:nth-child(1){
+  top:6px; transform:rotate(45deg);
+}
+.nav-hamburger[aria-expanded="true"] .bar:nth-child(2){
+  opacity:0; transform:translateX(-6px);
+}
+.nav-hamburger[aria-expanded="true"] .bar:nth-child(3){
+  top:6px; transform:rotate(-45deg);
+}
+
+/* حالت موبایل: فقط نشانش بده، روی دسکتاپ دکمه‌ی آف‌کانواس جدا داری */
+@media (min-width: 992px){
+  .nav-hamburger{ display:none; }
+}
+
+/* کنتراست بهتر در تم روشن (اختیاری) */
+:root[data-theme="light"] .nav-hamburger .bar{ background:#111827; box-shadow:none; }
+
 .navbar-custom{ background:#343a40; }
 .mode-toggle{ background:#ff9f00; color:#fff; border:none; }
 .navbar-profile{ display:flex; align-items:center; color:#fff; position:relative; }
@@ -554,11 +601,16 @@ html, body{ overflow-x: hidden; }
 
 
     <!-- Toggler -->
-    <button class="navbar-toggler shadow-none border-0" type="button"
-            data-bs-toggle="collapse" data-bs-target="#navMain"
-            aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fa-solid fa-bars-staggered"></i>
-    </button>
+<!-- همون دکمه‌ی موجودت؛ فقط داخلش رو این بذار -->
+<button class="navbar-toggler nav-hamburger shadow-none border-0" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navMain"
+        aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="bars" aria-hidden="true">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </span>
+</button>
 
     <!-- Collapsible -->
     <div class="collapse navbar-collapse" id="navMain">
@@ -1619,6 +1671,7 @@ function togglePass(id, btn){
 
 </body>
 </html>
+
 
 
 
