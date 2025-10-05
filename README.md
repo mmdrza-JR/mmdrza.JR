@@ -1,1 +1,1537 @@
-# mmdrza.JR
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>project</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<style>
+body{
+  font-family:"Vazirmatn",sans-serif;
+  background:#0f172a; color:#f8fafc;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-1;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(14,165,233,.15), transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(59,130,246,.12), transparent 60%);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{ width:10px; }
+::-webkit-scrollbar-track{ background:#0f172a; border-radius:10px; }
+::-webkit-scrollbar-thumb{ background:#0ea5e9; border-radius:10px; border:2px solid #0f172a; }
+::-webkit-scrollbar-thumb:hover{ background:#3b82f6; }
+
+/* ===== Navbar & basics (از کد خودت) ===== */
+.navbar-toggler{ background:#fff; color:#343a40; }
+.navbar-custom{ background:#343a40; }
+.mode-toggle{ background:#ff9f00; color:#fff; border:none; }
+.navbar-profile{ display:flex; align-items:center; color:#fff; position:relative; }
+.search-icon{ color:#fff; }
+.search-input{ width:250px; }
+.profile-icon{ font-size:1.5rem; color:#fff; margin-right:10px; }
+.nav-link{ color:#fff; }
+.btn{ background:#343a40; color:#fff; }
+
+@media (max-width:767px){
+  .navbar-nav{ flex-direction:row; }
+  .navbar-profile{ order:-1; }
+}
+
+/* ===== Tabs / Content ===== */
+.nav-tabs{
+  display:flex; justify-content:center; width:100%;
+  border-bottom:none; margin-bottom:0; padding:0;
+}
+.nav-tabs .nav-link{
+  flex:1; text-align:center; border:none; border-radius:20px;
+  background:#e9ecef; color:#333; margin:0; padding:12px; font-size:16px;
+  transition:.3s ease;
+}
+.nav-tabs .nav-link.active{ background:#0d6efd; color:#fff; }
+.tab-content{
+  width:100%; background:transparent; padding:30px;
+  border-radius:0 0 15px 15px; box-shadow:0 4px 8px rgba(0,0,0,.05); margin-top:0;
+}
+
+/* ===== Accordion / Specs ===== */
+.accordion-button{
+  background:#f1f1f1; border-radius:8px !important; font-weight:600; color:#333;
+  transition:background .2s ease,color .2s ease;
+}
+.accordion-button:not(.collapsed){ background:#0d6efd; color:#fff; }
+.accordion-button::after{
+  filter:invert(1); transition:transform .2s ease, filter .2s ease;
+}
+.accordion-button:not(.collapsed)::after{
+  transform:rotate(-180deg);
+  filter:invert(1) drop-shadow(0 0 6px rgba(255,255,255,.25));
+}
+.acc-dark{ background:#0f172a; border:1px solid rgba(255,255,255,.12); }
+.acc-btn-dark{ background:#11152a; color:#f8fafc; border-radius:.6rem !important; }
+.acc-btn-dark:not(.collapsed){
+  background:#0d6efd; color:#fff; box-shadow: inset 0 -1px 0 rgba(255,255,255,.12);
+}
+.spec-row{
+  display:flex; justify-content:space-between; gap:1rem;
+  padding:.5rem 0; border-bottom:1px dashed rgba(255,255,255,.12);
+}
+.spec-row:last-child{ border-bottom:none; }
+.spec-key{ color:#cbd5e1; }
+.spec-val{ color:#e2e8f0; }
+
+@media (max-width:576px){
+  .spec-row{ flex-direction:column; align-items:flex-start; }
+}
+
+/* ===== Forms inside Comments ===== */
+.form-control-dark,.form-select-dark{
+  background:#11152a; color:#f8fafc; border:1px solid rgba(255,255,255,.15);
+}
+.form-control-dark::placeholder{ color:#94a3b8; }
+.form-control-dark:focus,.form-select-dark:focus{
+  border-color:#0ea5e9; box-shadow:0 0 0 .2rem rgba(14,165,233,.2);
+}
+.comment-item{ background:#11152a; border:1px solid rgba(255,255,255,.12); }
+
+/* ===== Product header ===== */
+.product-header{
+  background:#0f172a; color:#f8fafc; border:1px solid rgba(255,255,255,.08);
+}
+.product-title{
+  font-weight:800; letter-spacing:-.4px; font-size:clamp(22px,3.6vw,34px); margin:0;
+}
+.product-sub{ color:#cbd5e1; font-size:clamp(14px,2.4vw,16px); }
+.product-meta span{
+  color:#a5b4fc; background:rgba(99,102,241,.08); border:1px solid rgba(99,102,241,.22);
+  padding:6px 10px; border-radius:10px; font-weight:600;
+}
+.ph-badge{
+  background:linear-gradient(90deg,#0ea5e9,#3b82f6); color:#fff; font-weight:700; border-radius:999px;
+}
+.ph-badge-soft{
+  background:rgba(255,255,255,.06); color:#e2e8f0; border:1px solid rgba(255,255,255,.12); border-radius:999px;
+}
+
+/* ===== Price card + CTA ===== */
+.price-card{ background:#0b1220; color:#f8fafc; border:1px solid rgba(255,255,255,.1); }
+.current-price{ font-weight:900; line-height:1; font-size:clamp(28px,4.2vw,44px); letter-spacing:-.5px; }
+.old-price{ color:#94a3b8; }
+.discount-pill{
+  align-self:flex-start; background:#dc2626; color:#fff; font-weight:700;
+  padding:2px 10px; border-radius:999px; font-size:.85rem;
+}
+.discount-pill.bump{ animation:discPop .45s ease; }
+@keyframes discPop{
+  0%{ transform:scale(.85); filter:saturate(1.1) }
+  55%{ transform:scale(1.15) }
+  100%{ transform:scale(1) }
+}
+
+/* CTA */
+.btn-cta{
+  position:relative; padding:.95rem 1.25rem; border:0; border-radius:12px;
+  background:linear-gradient(90deg,#0ea5e9,#3b82f6); color:#fff; font-weight:700; letter-spacing:.3px;
+  box-shadow:0 8px 24px rgba(14,165,233,.35); transition:transform .2s, box-shadow .2s, filter .2s; overflow:hidden;
+}
+.btn-cta:hover{ transform:translateY(-2px); box-shadow:0 14px 34px rgba(59,130,246,.45); filter:saturate(1.08); }
+.btn-cta:active{ transform:translateY(0); box-shadow:0 8px 22px rgba(59,130,246,.35); }
+.btn-cta:focus{ outline:none; box-shadow:0 0 0 .25rem rgba(14,165,233,.30); }
+.btn-cta::before{
+  content:""; position:absolute; top:0; left:-35%; width:30%; height:100%;
+  background:linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 100%);
+  transform:skewX(-20deg);
+}
+.btn-cta:hover::before{ animation:sheen 1s forwards; }
+@keyframes sheen{ from{left:-40%} to{left:110%} }
+
+/* Wishlist button + header badge */
+.btn-wishlist{ border-radius:12px; transition:.25s; font-weight:600; letter-spacing:.3px; }
+.btn-wishlist:hover{ transform:translateY(-2px) scale(1.03); box-shadow:0 6px 18px rgba(255,255,255,.15); }
+#wishlistLink{ position:relative; display:inline-flex; align-items:center; justify-content:center; font-size:1.4rem; color:#ff4d6d; transition:transform .2s, color .2s; }
+#wishlistLink:hover{ transform:scale(1.1); color:#ff1f4d; }
+#wishlistCount{
+  font-size:12px; min-width:20px; height:20px; padding:2px 6px; border-radius:50%; font-weight:bold;
+  color:#111; background:linear-gradient(135deg,#facc15,#f59e0b); box-shadow:0 2px 6px rgba(0,0,0,.3);
+  position:absolute; top:0; right:0; transform:translate(40%,-40%); animation:popIn .3s ease;
+}
+@keyframes popIn{ 0%{transform:scale(.7);opacity:.5} 70%{transform:scale(1.2);opacity:1} 100%{transform:scale(1)} }
+
+/* ===== Color & RAM controls ===== */
+.color-btn{
+  border:2px solid #fff !important; transition: transform .2s, box-shadow .2s;
+}
+.color-btn:hover{ transform:scale(1.1); box-shadow:0 0 10px rgba(255,255,255,.5); }
+.color-btn.active{ border:3px solid #0ea5e9 !important; box-shadow:0 0 12px #0ea5e9; }
+
+.custom-range::-webkit-slider-thumb{ background:#0ea5e9; border:2px solid #f8fafc; }
+.custom-range::-webkit-slider-runnable-track{
+  background:linear-gradient(90deg,#3b82f6,#0ea5e9); height:6px; border-radius:4px;
+}
+#ramValue.animate{ transform:scale(1.3); transition:transform .3s ease; }
+
+/* ===== Carousel ===== */
+.hero-frame{ position:relative; width:100%; aspect-ratio:16/9; background:#0b1220; overflow:hidden; }
+
+#carouselexample{
+  --c-radius:16px; --c-shadow:0 12px 34px rgba(15,23,42,.28); --c-bg:#0b1220;
+  --c-ctrl-bg:rgba(255,255,255,.16); --c-ctrl-bg-hover:rgba(255,255,255,.28); --c-ctrl-border:rgba(255,255,255,.30);
+  --c-indicator:rgba(255,255,255,.35); --c-indicator-active:#0ea5e9;
+  border-radius:var(--c-radius); overflow:hidden; background:var(--c-bg); box-shadow:var(--c-shadow); position:relative;
+}
+#carouselexample::after{
+  content:""; position:absolute; inset:auto 0 0 0; height:22%;
+  background:linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(8,13,25,.65) 70%, rgba(8,13,25,.9) 100%);
+  pointer-events:none;
+}
+.carousel-item img{ display:block; max-width:100%; height:auto; margin:0 auto; }
+
+/* controls (FA icons داخل span) */
+.carousel-control-prev .custom-carousel-icon,
+.carousel-control-next .custom-carousel-icon{
+  font-size:1.6rem; color:#fff; background:var(--c-ctrl-bg);
+  border:1px solid var(--c-ctrl-border); border-radius:50%; padding:12px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 6px 18px rgba(0,0,0,.4), 0 0 12px rgba(14,165,233,.65), 0 0 24px rgba(14,165,233,.45);
+  transition:all .25s ease;
+}
+.carousel-control-prev:hover .custom-carousel-icon,
+.carousel-control-next:hover .custom-carousel-icon{
+  background:var(--c-ctrl-bg-hover); transform:scale(1.12) translateY(-1px);
+  box-shadow:0 8px 22px rgba(0,0,0,.45), 0 0 18px rgba(14,165,233,.85), 0 0 36px rgba(14,165,233,.6);
+}
+
+/* dots */
+#carouselexample .carousel-indicators [data-bs-target]{
+  width:9px; height:9px; border-radius:50%; background:var(--c-indicator); border:0; opacity:1;
+  transition:transform .18s, background-color .18s, box-shadow .18s;
+}
+#carouselexample .carousel-indicators .active{
+  background:var(--c-indicator-active);
+  transform:scale(1.15);
+  box-shadow:0 0 0 4px rgba(14,165,233,.20), 0 0 18px rgba(14,165,233,.45);
+}
+
+/* ===== Offcanvas (Mega) ===== */
+.mega-offcanvas{
+  --oc-bg: rgba(17,24,39,.6); --oc-border: rgba(255,255,255,.16); --oc-glow: 0 12px 34px rgba(15,23,42,.35);
+  background:var(--oc-bg); color:#f8fafc; border-right:1px solid var(--oc-border);
+  backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:var(--oc-glow);
+  width:min(88vw,380px);
+}
+.mega-offcanvas .offcanvas-header{ border-bottom:1px solid var(--oc-border); }
+.mega-offcanvas .btn-close{ filter:invert(1); }
+.oc-avatar{ width:48px; height:48px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,.25); }
+
+/* search */
+.oc-search{
+  position:relative; display:flex; align-items:center; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14); border-radius:12px; padding:.35rem .75rem;
+}
+.oc-search i{ opacity:.9; margin-right:.5rem; }
+.oc-search-input{ background:transparent; border:0; color:#e5e7eb; padding-left:0; box-shadow:none !important; }
+.oc-search-input::placeholder{ color:#94a3b8; }
+
+/* chips / links / promo */
+.oc-chip{
+  display:inline-block; padding:.35rem .7rem; border-radius:999px; background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16); color:#dbeafe; font-weight:600; margin:.2rem .25rem .2rem 0; font-size:.85rem;
+}
+.oc-group{ margin-top:1.25rem; }
+.oc-title{ font-weight:800; letter-spacing:.2px; margin-bottom:.5rem; color:#c7d2fe; }
+.oc-link{
+  display:block; padding:.6rem .6rem; margin:.15rem 0; border-radius:10px; color:#e5e7eb; text-decoration:none;
+  background:transparent; border:1px solid transparent; transition:.2s;
+}
+.oc-link:hover{
+  background:rgba(14,165,233,.08); border-color:rgba(14,165,233,.25); box-shadow:0 8px 24px rgba(14,165,233,.18);
+  transform:translateX(2px);
+}
+.oc-divider{
+  height:1px; margin:1rem 0; background:linear-gradient(90deg, rgba(14,165,233,0) 0%, rgba(14,165,233,.6) 50%, rgba(14,165,233,0) 100%);
+  filter:drop-shadow(0 0 6px rgba(14,165,233,.5));
+}
+.oc-promo{
+  background:linear-gradient(135deg, rgba(14,165,233,.18), rgba(59,130,246,.18));
+  border:1px solid rgba(255,255,255,.18); border-radius:16px; padding:.9rem 1rem;
+}
+.oc-code{
+  display:inline-block; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  background:#111827; border:1px dashed rgba(255,255,255,.25); padding:.35rem .6rem; border-radius:8px; letter-spacing:.5px;
+}
+
+/* footer socials */
+.oc-socials a{
+  width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:50%; color:#e5e7eb; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14);
+  text-decoration:none; transition:.2s;
+}
+.oc-socials a:hover{ color:#fff; transform:translateY(-2px); box-shadow:0 8px 24px rgba(255,255,255,.14); }
+
+/* Backdrop (یک‌بار تعریف) */
+.offcanvas-backdrop.show{
+  background-color: rgba(2, 6, 23, 0.45);
+  backdrop-filter: blur(4px) saturate(1.05);
+  -webkit-backdrop-filter: blur(4px) saturate(1.05);
+}
+
+/* ===== Nav Ultra (glassy) ===== */
+.nav-ultra{
+  --nav-bg: rgba(15,23,42,.55); --nav-b: rgba(255,255,255,.12);
+  backdrop-filter:saturate(1.1) blur(10px); -webkit-backdrop-filter:saturate(1.1) blur(10px);
+  background:linear-gradient(180deg, var(--nav-bg), rgba(15,23,42,.35));
+  border-bottom:1px solid var(--nav-b); box-shadow:0 8px 30px rgba(0,0,0,.25); z-index:1030;
+}
+.nav-ultra .navbar-toggler{ color:#e2e8f0; }
+.brand-dot{
+  width:10px; height:10px; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #3b82f6, #0ea5e9);
+  box-shadow:0 0 12px rgba(59,130,246,.9), 0 0 24px rgba(14,165,233,.6); display:inline-block;
+}
+.text-gradient{
+  background:linear-gradient(90deg,#0ea5e9,#3b82f6); -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.fw-extrabold{ font-weight:900; }
+
+.nav-links .nav-link{
+  color:#e5e7eb; font-weight:700; position:relative; padding:.6rem 1rem; border-radius:10px;
+  transition:color .2s, background .2s;
+}
+.nav-links .nav-link:hover{ color:#fff; background:rgba(255,255,255,.06); }
+.nav-links .nav-link.active{ color:#fff; }
+.nav-links .nav-link.active::after,
+.nav-links .nav-link:hover::after{
+  content:""; position:absolute; left:12px; right:12px; bottom:6px; height:2px;
+  background:linear-gradient(90deg,#0ea5e9,#3b82f6); box-shadow:0 0 10px rgba(14,165,233,.7); border-radius:999px;
+}
+.nav-search{
+  position:relative; display:flex; align-items:center; gap:.5rem;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); padding:.3rem .6rem; border-radius:10px;
+}
+.nav-search i{ color:#cbd5e1; }
+.nav-search .form-control{
+  background:transparent; border:0; color:#e5e7eb; padding-left:0; box-shadow:none; width:240px;
+}
+.nav-search .form-control::placeholder{ color:#94a3b8; }
+.shortcut{
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16);
+  color:#e2e8f0; padding:0 .35rem; border-radius:6px; font-size:.75rem;
+}
+.nav-icon{
+  position:relative; display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; color:#e5e7eb; text-decoration:none;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14);
+  border-radius:10px; transition:.2s;
+}
+.nav-icon:hover{ color:#fff; transform:translateY(-1px); box-shadow:0 10px 28px rgba(14,165,233,.25); }
+.badge-count{
+  position:absolute; top:-6px; right:-6px; min-width:20px; height:20px; padding:0 6px; border-radius:999px;
+  font-size:.7rem; font-weight:800; color:#0b1220; background:linear-gradient(135deg,#facc15,#f59e0b);
+  box-shadow:0 4px 10px rgba(0,0,0,.35);
+}
+.btn-ghost{ color:#e5e7eb; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:10px; }
+.btn-ghost:hover{ color:#fff; }
+.nav-scrolled{
+  box-shadow:0 12px 30px rgba(0,0,0,.35) !important;
+  background:linear-gradient(180deg, rgba(15,23,42,.85), rgba(15,23,42,.6)) !important;
+}
+.logo-neon{ display:inline-block; vertical-align:middle; filter:drop-shadow(0 4px 16px rgba(14,165,233,.35)); }
+.logo-neon:hover{ filter:drop-shadow(0 6px 22px rgba(14,165,233,.55)); transition:.2s; }
+
+/* Neon Clock */
+.nav-clock{
+  font-weight:700; border-radius:10px; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14); color:#e2e8f0; box-shadow:0 10px 28px rgba(14,165,233,.15);
+}
+.nav-clock .fa-clock{ color:#93c5fd; text-shadow:0 0 8px rgba(59,130,246,.6); }
+.nav-clock .clock-text{ letter-spacing:.3px; text-shadow:0 0 6px rgba(14,165,233,.45); }
+	.auth-card{
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow: 0 10px 28px rgba(14,165,233,.12);
+}
+.auth-card .nav-pills .nav-link{ background:#e9ecef; color:#333; border-radius:999px; }
+.auth-card .nav-pills .nav-link.active{ background:#0d6efd; color:#fff; }
+.btn-social{
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.16);
+  color:#e5e7eb;
+}
+.btn-social:hover{
+  color:#fff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(14,165,233,.20);
+}
+/* ===== Navbar Categories (Mega Menu) – Ultra Style ===== */
+.mega-menu{
+  min-width: 780px;                 /* یه ذره عریض‌تر */
+  background: rgba(13,18,34,.82);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 1rem 1.25rem;
+  animation: megaIn .18s ease both;
+  transform-origin: top center;
+}
+@keyframes megaIn {
+  from { opacity: 0; transform: translateY(6px) scale(.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* عنوان گروه‌ها */
+.mega-title{
+  color:#c7d2fe; font-weight:800; letter-spacing:.2px; margin-bottom:.35rem;
+}
+
+/* لینک‌های داخل مگامنو */
+.mega-link{
+  display:block; padding:.45rem .55rem; border-radius:10px;
+  color:#e5e7eb; text-decoration:none;
+  border:1px solid transparent; transition: .18s ease;
+}
+.mega-link:hover{
+  color:#fff; background: rgba(14,165,233,.10);
+  border-color: rgba(14,165,233,.25);
+  transform: translateX(2px);
+  box-shadow: 0 8px 22px rgba(14,165,233,.20);
+}
+
+/* کارت‌ کتگوری (اختیاری: اگر خواستی به‌جای mega-link معمولی استفاده کنی) */
+.cat-card{
+  position:relative; overflow:hidden; border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.14);
+  padding: .9rem .9rem;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.cat-card:hover{
+  transform: translateY(-2px);
+  border-color: rgba(14,165,233,.35);
+  box-shadow: 0 12px 30px rgba(14,165,233,.20);
+}
+.cat-card .cat-icon{
+  width:40px;height:40px; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:10px; margin-bottom:.5rem;
+  background: rgba(14,165,233,.15); border:1px solid rgba(14,165,233,.25);
+  color:#93c5fd;
+  text-shadow: 0 0 8px rgba(59,130,246,.55);
+}
+.cat-card .cat-title{ font-weight:800; color:#e5e7eb; }
+.cat-card .cat-sub{ font-size:.85rem; color:#a3aed0; }
+
+/* تقسیم‌گر درون منو */
+.mega-divider{
+  height:1px; margin:.5rem 0 1rem;
+  background: linear-gradient(90deg, rgba(14,165,233,0) 0%, rgba(14,165,233,.6) 50%, rgba(14,165,233,0) 100%);
+  filter: drop-shadow(0 0 6px rgba(14,165,233,.5));
+}
+
+/* تایل پرومو سمت راست */
+.promo-tile{
+  background: linear-gradient(135deg, rgba(14,165,233,.18), rgba(59,130,246,.18));
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:14px; padding:1rem;
+}
+
+/* خود آیتم «Categories» در ناوبار */
+.nav-links .nav-link[aria-expanded="true"]{
+  background: rgba(255,255,255,.07);
+}
+.nav-links .dropdown-menu{
+  border:0; margin-top:.65rem; /* فاصله از نوار */
+}
+
+/* ردیف «پیل»های کتگوری (اگه بالای لیست بذاری) */
+.category-pills .pill{
+  display:inline-block; margin:.15rem .25rem .15rem 0;
+  padding:.35rem .65rem; border-radius:999px;
+  background: rgba(255,255,255,.08);
+  color:#dbeafe; font-weight:700; font-size:.85rem;
+  border:1px solid rgba(255,255,255,.16);
+  transition: .18s ease;
+}
+.category-pills .pill:hover{
+  background: rgba(14,165,233,.12);
+  border-color: rgba(14,165,233,.28);
+  box-shadow: 0 8px 22px rgba(14,165,233,.2);
+}
+
+/* آیکن کنار متن "Categories" */
+.nav-links .nav-link .fa-border-all,
+.nav-links .nav-link .fa-table-cells{
+  opacity:.92;
+}
+
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg nav-ultra fixed-top">
+  <div class="container-fluid px-3 px-lg-4">
+    <!-- Brand -->
+   
+ <span class="brand-dot"></span> &nbsp;  
+      <span class="fw-extrabold">mmdrza <span class="text-gradient">shop</span></span>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler shadow-none border-0" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navMain"
+            aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa-solid fa-bars-staggered"></i>
+    </button>
+
+    <!-- Collapsible -->
+    <div class="collapse navbar-collapse" id="navMain">
+      <!-- Left: links -->
+      <ul class="navbar-nav me-auto align-items-lg-center nav-links">
+        <li class="nav-item">
+          <a class="nav-link active" href="#"><i class="fa-solid fa-house me-1"></i>Home</a>
+        </li>
+
+        <!-- Mega dropdown -->
+        <li class="nav-item dropdown position-static">
+          <a class="nav-link dropdown-toggle" href="#" id="megaDrop" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-solid fa-solid fa-border-all me-2"></i>Categories
+          </a>
+          <div class="dropdown-menu mega-menu p-3 p-lg-4 shadow-lg border-0" aria-labelledby="megaDrop">
+            <div class="row g-4">
+              <div class="col-12 col-lg-4">
+                <h6 class="mega-title"><i class="fa-solid fa-mobile-screen me-2"></i>Phones</h6>
+                <a class="mega-link" href="#">iPhone</a>
+                <a class="mega-link" href="#">Samsung Galaxy</a>
+                <a class="mega-link" href="#">Xiaomi</a>
+              </div>
+              <div class="col-12 col-lg-4">
+                <h6 class="mega-title"><i class="fa-solid fa-laptop me-2"></i>Laptops</h6>
+                <a class="mega-link" href="#">Gaming</a>
+                <a class="mega-link" href="#">Ultrabook</a>
+                <a class="mega-link" href="#">Workstation</a>
+              </div>
+              <div class="col-12 col-lg-4">
+                <h6 class="mega-title"><i class="fa-solid fa-bolt me-2"></i>Hot</h6>
+                <div class="promo-tile">
+                  <div class="small text-white-50">Today only</div>
+                  <div class="h6 mb-2">Extra 10% OFF</div>
+                  <button class="btn btn-cta btn-sm">Apply Code</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-fire me-1"></i>Deals</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fa-solid fa-headset me-1"></i>Support</a>
+        </li>
+      </ul>
+
+      <!-- Right: search + icons -->
+      <div class="d-flex align-items-center gap-2 gap-lg-3">
+<span id="navClock" class="nav-clock d-none d-md-inline-flex align-items-center px-2 py-1">
+  <i class="fa-regular fa-clock me-2"></i>
+  <span class="clock-text">--:--</span>
+</span>
+        <!-- Search -->
+        <div class="nav-search d-none d-md-flex">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" class="form-control" placeholder="Search products…">
+          <kbd class="shortcut d-none d-lg-inline">/</kbd>
+        </div>
+
+        <!-- Wishlist -->
+        <a class="nav-icon" href="#" id="navWishlist">
+          <i class="fa-regular fa-heart"></i>
+          <span class="badge-count" id="wlCount">0</span>
+        </a>
+
+        <!-- Cart -->
+        <a class="nav-icon" href="#" id="navCart">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span class="badge-count" id="cartCountNav">0</span>
+        </a>
+
+        <!-- Offcanvas trigger (mobile menu) -->
+        <button class="btn btn-ghost d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#megaOffcanvas" aria-controls="megaOffcanvas">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#megaOffcanvas" aria-controls="megaOffcanvas" style="margin-top: 70px;">
+  <i class="fas fa-bars"></i>
+</button>
+
+<div class="offcanvas offcanvas-start mega-offcanvas" tabindex="-1" id="megaOffcanvas" aria-labelledby="megaOffcanvasLabel">
+  <div class="offcanvas-header border-0">
+   <div class="d-flex align-items-center justify-content-between w-100">
+  <div class="d-flex align-items-center gap-3">
+    <img src="https://i.pravatar.cc/80?img=12" class="oc-avatar" alt="User avatar">
+    <div>
+      <h6 class="mb-0 fw-bold" id="ocWelcome">Welcome, Guest</h6>
+      <small class="text-white-50" id="ocSub">Sign in for better offers</small>
+    </div>
+  </div>
+
+<div class="d-flex align-items-center gap-2" id="authActions">
+  <button class="btn btn-cta btn-sm auth-guest" data-bs-toggle="collapse" data-bs-target="#authPanel" aria-expanded="false">
+    <i class="fa-solid fa-right-to-bracket me-1"></i> Sign in
+  </button>
+  <button class="btn btn-outline-light btn-sm auth-guest" data-bs-toggle="collapse" data-bs-target="#authPanel" aria-expanded="false">
+    <i class="fa-solid fa-user-plus me-1"></i> Create
+  </button>
+  <button class="btn btn-danger btn-sm d-none" id="btnSignOut">
+    <i class="fa-solid fa-arrow-right-from-bracket me-1"></i> Sign out
+  </button>
+</div>
+
+</div>
+
+    <button type="button" class="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body pt-0">
+	  <!-- Auth Panel -->
+<div id="authPanel" class="collapse">
+  <div class="auth-card rounded-3 p-3 mb-3">
+    <!-- تب‌ها -->
+    <ul class="nav nav-pills gap-2 mb-3" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active px-3 py-2" id="auth-signin-tab"
+                data-bs-toggle="tab" data-bs-target="#auth-signin" type="button" role="tab">
+          <i class="fa-solid fa-right-to-bracket me-1"></i> Sign in
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link px-3 py-2" id="auth-signup-tab"
+                data-bs-toggle="tab" data-bs-target="#auth-signup" type="button" role="tab">
+          <i class="fa-solid fa-user-plus me-1"></i> Create account
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <!-- Sign in -->
+      <div class="tab-pane fade show active" id="auth-signin" role="tabpanel">
+        <form id="formSignIn" class="row g-2" onsubmit="return handleSignIn(event)">
+          <div class="col-12">
+            <label class="form-label small mb-1">Email</label>
+            <input type="email" class="form-control form-control-dark" id="siEmail" placeholder="you@email.com" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label small mb-1">Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control form-control-dark" id="siPass" placeholder="••••••••" required>
+              <button class="btn btn-outline-light" type="button" onclick="togglePass('siPass', this)">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-12 d-flex justify-content-between align-items-center">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="siRemember" checked>
+              <label class="form-check-label small" for="siRemember">Remember me</label>
+            </div>
+            <a href="#" class="small text-info text-decoration-none">Forgot password?</a>
+          </div>
+          <div class="col-12 d-grid d-sm-flex gap-2 mt-1">
+            <button class="btn btn-cta flex-fill" type="submit">
+              <i class="fa-solid fa-right-to-bracket me-1"></i> Sign in
+            </button>
+            <button class="btn btn-outline-light flex-fill" type="button" data-bs-target="#authPanel" data-bs-toggle="collapse">
+              Close
+            </button>
+          </div>
+          <div class="col-12">
+            <div class="text-center text-white-50 small my-2">or</div>
+            <div class="d-grid d-sm-flex gap-2">
+              <button type="button" class="btn btn-social flex-fill"><i class="fa-brands fa-google me-2"></i> Google</button>
+              <button type="button" class="btn btn-social flex-fill"><i class="fa-brands fa-apple me-2"></i> Apple</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Sign up -->
+      <div class="tab-pane fade" id="auth-signup" role="tabpanel">
+        <form id="formSignUp" class="row g-2" onsubmit="return handleSignUp(event)">
+          <div class="col-12 col-sm-6">
+            <label class="form-label small mb-1">First name</label>
+            <input type="text" class="form-control form-control-dark" id="suFirst" placeholder="John" required>
+          </div>
+          <div class="col-12 col-sm-6">
+            <label class="form-label small mb-1">Last name</label>
+            <input type="text" class="form-control form-control-dark" id="suLast" placeholder="Doe" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label small mb-1">Email</label>
+            <input type="email" class="form-control form-control-dark" id="suEmail" placeholder="you@email.com" required>
+          </div>
+          <div class="col-12">
+            <label class="form-label small mb-1">Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control form-control-dark" id="suPass" placeholder="Create a strong password" required>
+              <button class="btn btn-outline-light" type="button" onclick="togglePass('suPass', this)">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="suTerms" required>
+              <label class="form-check-label small" for="suTerms">
+                I agree to the <a href="#" class="text-info text-decoration-none">Terms & Privacy</a>.
+              </label>
+            </div>
+          </div>
+          <div class="col-12 d-grid d-sm-flex gap-2 mt-1">
+            <button class="btn btn-cta flex-fill" type="submit">
+              <i class="fa-solid fa-user-plus me-1"></i> Create account
+            </button>
+            <button class="btn btn-outline-light flex-fill" type="button" data-bs-target="#authPanel" data-bs-toggle="collapse">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Auth Panel -->
+
+    <!-- Search -->
+    <div class="oc-search mb-3">
+      <i class="fas fa-magnifying-glass"></i>
+      <input type="text" class="form-control oc-search-input" placeholder="Search products, brands…">
+    </div>
+
+    <!-- Quick tags -->
+    <div class="mb-3">
+      <span class="oc-chip">🔥 Hot Deals</span>
+      <span class="oc-chip">New Arrivals</span>
+      <span class="oc-chip">iPhone</span>
+      <span class="oc-chip">Laptops</span>
+    </div>
+
+    <!-- Nav groups -->
+    <div class="oc-group">
+      <div class="oc-title"><i class="fas fa-table-cells me-2"></i> Categories</div>
+      <a class="oc-link" href="#"><i class="fas fa-mobile-alt me-2"></i>Smart Phones</a>
+      <a class="oc-link" href="#"><i class="fas fa-laptop me-2"></i>Laptops</a>
+      <a class="oc-link" href="#"><i class="fas fa-gamepad me-2"></i>PlayStations</a>
+      <a class="oc-link" href="#"><i class="fas fa-desktop me-2"></i>PC & Accessories</a>
+    </div>
+
+    <div class="oc-divider"></div>
+
+    <div class="oc-group">
+      <div class="oc-title"><i class="fas fa-bolt me-2"></i> Quick Access</div>
+      <a class="oc-link" href="#"><i class="fas fa-percent me-2"></i>Offers</a>
+      <a class="oc-link" href="#"><i class="fas fa-box-open me-2"></i>My Orders</a>
+      <a class="oc-link" href="#"><i class="fas fa-heart me-2"></i>Wishlist</a>
+      <a class="oc-link" href="#"><i class="fas fa-headset me-2"></i>Support</a>
+    </div>
+
+    <!-- Promo Card -->
+    <div class="oc-promo mt-4">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <strong>Today Only!</strong>
+        <span class="badge bg-warning text-dark">-10%</span>
+      </div>
+      <div class="small text-white-50 mb-2">Use code:</div>
+      <div class="oc-code">MZ-SALE</div>
+      <div class="text-end mt-2">
+        <button class="btn btn-sm btn-cta">Apply</button>
+      </div>
+    </div>
+
+    <!-- Footer: theme + socials -->
+    <div class="mt-4 d-flex align-items-center justify-content-between">
+      <div class="form-check form-switch m-0">
+        <input class="form-check-input" type="checkbox" id="themeSwitch">
+        <label class="form-check-label small" for="themeSwitch">Dark Mode</label>
+      </div>
+      <div class="d-flex align-items-center gap-2 oc-socials">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+        <a href="#" aria-label="X"><i class="fab fa-twitter"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="container my-4">
+  <div class="row g-4 align-items-stretch">
+    <!-- ستون چپ: کادر اسم/متن محصول -->
+    <div class="col-12 col-lg-7">
+      <div class="product-header p-4 rounded-4 shadow-sm h-100">
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+          <span class="badge ph-badge">NEW • 2025</span>
+          <span class="badge ph-badge-soft"><i class="fas fa-fire me-1"></i> HOT</span>
+          <span class="badge ph-badge-soft"><i class="fas fa-shield-halved me-1"></i> 7-Day Guarantee</span>
+        </div>
+
+        <h1 class="product-title mb-2">iPhone 17 Pro Max — 256GB / ZAA</h1>
+        <p class="product-sub mb-3">
+          Perfect for gamers and creators, brigher dispplay and 48MP telephoto , with A19 PRO
+        </p>
+
+        <div class="d-flex flex-wrap gap-3 product-meta">
+          <span><i class="fas fa-microchip me-2"></i>A19 Pro</span>
+          <span><i class="fas fa-mobile-screen-button me-2"></i>6.9" 120Hz</span>
+          <span><i class="fas fa-camera me-2"></i>48MP Tele</span>
+          <span><i class="fas fa-bolt me-2"></i>MIE Security</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ستون راست: خودِ کاروسل (همون HTML خودت، فقط بدون container اضافی) -->
+    <div class="col-12 col-lg-5">
+      <div id="carouselexample" class="carousel slide rounded-4 overflow-hidden h-100" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselexample" data-bs-slide-to="0"  class="active" ></button>
+          <button type="button" data-bs-target="#carouselexample" data-bs-slide-to="1" ></button>
+          <button type="button" data-bs-target="#carouselexample" data-bs-slide-to="2" ></button>
+        </div>
+
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="../../Downloads/download (7).jpg" class="d-block w-30" alt="slide 1">
+          </div>
+          <div class="carousel-item">
+            <img src="../../Downloads/download (1).jpg" class="d-block w-30" alt="slide 2">
+          </div>
+          <div class="carousel-item">
+            <img src="../../Downloads/download.jpg" class="d-block w-30" alt="slide 3">
+          </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselexample" data-bs-slide="prev">
+  <span class="fa-solid fa-chevron-left custom-carousel-icon"></span>
+</button>
+
+<!-- Next -->
+<button class="carousel-control-next" type="button" data-bs-target="#carouselexample" data-bs-slide="next">
+  <span class="fa-solid fa-chevron-right custom-carousel-icon"></span>
+</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="col-12 col-lg-5 container">
+      <div class="price-card p-4 rounded-4 shadow-lg row"
+           data-msrp="1299.99" data-price="1170.99">
+        <div class="d-flex align-items-start justify-content-between">
+          <div>
+            <div class="small text-white-50 mb-1">Availability:
+              <span class="text-success fw-semibold">In stock</span>
+            </div>
+            <div class="d-flex align-items-end gap-3">
+              <div id="currentPrice" class="current-price">$1,170.99</div>
+              <div class="d-flex flex-column">
+                <del id="oldPrice" class="old-price">1299.99 USD</del>
+                <span id="discountPct" class="discount-pill">-10%</span>
+              </div>
+            </div>
+          </div>
+          <div class="text-end small">
+            <div class="text-white-50">Shipping</div>
+            <div class="fw-semibold">Free • 2–4 days</div>
+          </div>
+        </div>
+
+        <p class="text-white-50 mt-3 mb-3">
+          choose your RAM and color. <strong>7-day replacemant warranty</strong>.
+        </p>
+<div class="d-grid gap-3 d-sm-flex">
+          <button class="btn btn-cta w-100" type="button" onclick="handleAddToCart()">
+            <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+          </button>
+<button
+  class="btn btn-outline-light w-100 btn-wishlist"
+  data-product-id="iphone17pro256zaa"
+  data-product-name="iPhone 17 Pro Max 256GB/ZAA"
+  data-product-price="1170.99"
+  data-product-image="download (7).jpg"
+  style="border-radius:12px;"
+>
+  <i class="far fa-heart me-2"></i><span class="wl-text"> Add to wishlist</span>
+</button>
+
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</div>
+<section class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0 p-4 text-center" style="background:#0f172a;color:#f8fafc;border-radius:1rem;">
+        <h5 class="mb-3">
+          <i class="fas fa-palette me-2 text-warning"></i>
+          Choose Color
+        </h5>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <!-- دکمه‌های رنگ -->
+          <button class="btn btn-outline-light rounded-circle color-btn" data-color="Black" style="width:50px;height:50px;background:black;"></button>
+          <button class="btn btn-outline-light rounded-circle color-btn" data-color="White" style="width:50px;height:50px;background:white;"></button>
+          <button class="btn btn-outline-light rounded-circle color-btn" data-color="Orange" style="width:50px;height:50px;background:orange;"></button>
+        </div>
+
+        <div class="mt-3">
+          <span class="fw-bold">Selected Color:
+
+            <span id="colorValue" class="text-warning">None</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container my-5">
+  <div class="row justify-content-center">
+   
+    <div class="col-12 col-md-8 col-lg-6">
+      <div class="card shadow-lg border-0 p-4 text-center" style="background:#0f172a;color:#f8fafc;border-radius:1rem;">
+        <h5 class="mb-4">
+          <i class="fas fa-memory me-2 text-info"></i>
+          Adjust your RAM
+        </h5>
+
+        <label for="customrange" class="form-label mb-1">
+          <small class="text-white-50">Min: 6GB • Max: 12GB</small>
+        </label>
+
+        <input
+          type="range"
+          class="form-range custom-range"
+          id="customrange"
+          min="6" max="12" step="2"
+          oninput="updateRamValue(this.value)"
+        >
+
+        <div class="mt-3">
+          <span class="fw-bold">Your chosen RAM:
+            <span id="ramValue" class="text-info fs-4">6</span> GB
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="container-fluid my-5 px-0" style="width: 100%; max-width: 1200px; margin: 0 auto;">
+<div class="row justify-content-center">
+        <div class="col-12">
+            <ul class="nav nav-pills justify-content-center gap-2 flex-wrap mb-4" id="productTabs" role="tablist" style="width: 100%;">
+ 
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active px-4 py-2" id="desc-tab"
+              data-bs-toggle="tab" data-bs-target="#desc"
+              type="button" role="tab" aria-controls="desc" aria-selected="true">
+        <i class="fas fa-align-left me-2"></i>Description
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link px-4 py-2" id="specs-tab"
+              data-bs-toggle="tab" data-bs-target="#specs"
+              type="button" role="tab" aria-controls="specs" aria-selected="false">
+        <i class="fas fa-microchip me-2"></i>Specifications
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link px-4 py-2" id="comments-tab"
+              data-bs-toggle="tab" data-bs-target="#comments"
+              type="button" role="tab" aria-controls="comments" aria-selected="false">
+        <i class="fas fa-comments me-2"></i>Comments
+      </button>
+    </li>
+  </ul>
+<div class="tab-content" id="productTabContent" style="width:100%;">
+
+  <!-- Description -->
+  <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="desc-tab">
+    <div class="card border-0 shadow-lg rounded-4" style="background:#0f172a;color:#f8fafc;">
+      <div class="card-body p-4 p-lg-5">
+        <h2 class="h4 fw-bold mb-3">Product Description</h2>
+
+        <p class="text-white-50 mb-4">
+          The iPhone 17 Pro and iPhone 17 Pro Max are smartphones developed and marketed by Apple.
+          Alongside the iPhone 17 and iPhone Air, they form the nineteenth generation of the iPhone,
+          succeeding the iPhone 16 Pro and iPhone 16 Pro Max. They were unveiled during the Apple Event
+          at Apple Park in Cupertino, California, on September 9, 2025, and were released on September 19, 2025.
+        </p>
+
+        <h4 class="h5 fw-semibold mt-4">Design</h4>
+        <p class="text-white-50">
+          Both the iPhone 17 Pro models feature a new design over predecessor models and come in three colors:
+          the new Cosmic Orange, Deep Blue, and Silver. They are the first Pro-level iPhone models to feature the
+          aluminum chassis design rather than titanium/stainless steel, in response to the overheating issues of the iPhone 15 Pro.
+          They are also the first Pro-level models to not come in black.
+        </p>
+
+        <h4 class="h5 fw-semibold mt-4">Specifications</h4>
+        <p class="text-white-50">
+          The iPhone 17 Pro/Pro Max use the A19 Pro SoC. It incorporates the Apple-designed N1 networking chip.
+          They use Qualcomm’s Snapdragon X80 modem. The iPhone 17 Pro comes with 12GB of RAM.
+        </p>
+
+        <h4 class="h5 fw-semibold mt-4">Display</h4>
+        <p class="text-white-50">
+          Pro: 6.3" (2622×1206). Pro Max: 6.9" (2868×1320). Up to 3000 nits brightness.
+        </p>
+
+        <h4 class="h5 fw-semibold mt-4">Camera</h4>
+        <p class="text-white-50">
+          Redesigned “plateau camera”, 4× telephoto tetraprism, 48MP sensor enabling optical-quality 8× via crop.
+          18MP front Center Stage with Dual Capture (front+rear video).
+        </p>
+
+        <h4 class="h5 fw-semibold mt-4">Security</h4>
+        <p class="text-white-50">
+          Memory Integrity Enforcement (MIE) hardens kernel and >70 userland processes using EMTE & secure allocators.
+        </p>
+
+        <hr class="my-4 border-secondary">
+
+        <div class="row g-3 text-center">
+          <div class="col-6 col-md-3">
+            <div class="stat-tile-dark rounded-3 p-3">
+              <div class="h5 mb-0">6.9"</div><small class="text-white-50">Display</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-tile-dark rounded-3 p-3">
+              <div class="h5 mb-0">3000</div><small class="text-white-50">nits peak</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-tile-dark rounded-3 p-3">
+              <div class="h5 mb-0">48MP</div><small class="text-white-50">Telephoto</small>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-tile-dark rounded-3 p-3">
+              <div class="h5 mb-0">120Hz</div><small class="text-white-50">Refresh</small>
+            </div>
+          </div>
+        </div>
+      </div><!-- /card-body -->
+    </div><!-- /card -->
+  </div><!-- /tab-pane desc -->
+
+  <!-- Specifications -->
+  <div class="tab-pane fade" id="specs" role="tabpanel" aria-labelledby="specs-tab">
+    <div class="card border-0 shadow-lg rounded-4" style="background:#0f172a;color:#f8fafc;">
+      <div class="card-body p-4 p-lg-5">
+        <h2 class="h4 fw-bold mb-4">Technical Specifications</h2>
+
+        <div class="accordion accordion-flush" id="specsaccordion">
+          <div class="accordion-item acc-dark mb-3 rounded-3">
+            <h2 class="accordion-header" id="headingone">
+              <button class="accordion-button acc-btn-dark collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#cpucollapse">
+                Processor & Hardware
+              </button>
+            </h2>
+            <div id="cpucollapse" class="accordion-collapse collapse" data-bs-parent="#specsaccordion">
+              <div class="accordion-body">
+                <div class="spec-row"><span class="spec-key">Chipset</span><span class="spec-val">Apple A19 Pro</span></div>
+                <div class="spec-row"><span class="spec-key">Memory</span><span class="spec-val">12GB RAM</span></div>
+                <div class="spec-row"><span class="spec-key">Storage</span><span class="spec-val">256GB</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item acc-dark mb-3 rounded-3">
+            <h2 class="accordion-header" id="headingtwo">
+              <button class="accordion-button acc-btn-dark collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#displaycollapse">
+                Display
+              </button>
+            </h2>
+            <div id="displaycollapse" class="accordion-collapse collapse" data-bs-parent="#specsaccordion">
+              <div class="accordion-body">
+                <div class="spec-row"><span class="spec-key">Size</span><span class="spec-val">6.9"</span></div>
+                <div class="spec-row"><span class="spec-key">Resolution</span><span class="spec-val">2868×1320</span></div>
+                <div class="spec-row"><span class="spec-key">Refresh rate</span><span class="spec-val">120Hz</span></div>
+                <div class="spec-row"><span class="spec-key">Brightness</span><span class="spec-val">Up to 3000 nits</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item acc-dark mb-3 rounded-3">
+            <h2 class="accordion-header" id="headingthree">
+              <button class="accordion-button acc-btn-dark collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#cameracollapse">
+                Camera
+              </button>
+            </h2>
+            <div id="cameracollapse" class="accordion-collapse collapse" data-bs-parent="#specsaccordion">
+              <div class="accordion-body">
+                <div class="spec-row"><span class="spec-key">Main</span><span class="spec-val">48MP Telephoto</span></div>
+                <div class="spec-row"><span class="spec-key">Video</span><span class="spec-val">4K @ 120fps</span></div>
+                <div class="spec-row"><span class="spec-key">Front</span><span class="spec-val">18MP Center Stage</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item acc-dark mb-3 rounded-3">
+            <h2 class="accordion-header" id="headingfour">
+              <button class="accordion-button acc-btn-dark collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#batterycollapse">
+                Battery
+              </button>
+            </h2>
+            <div id="batterycollapse" class="accordion-collapse collapse" data-bs-parent="#specsaccordion">
+              <div class="accordion-body">
+                <div class="spec-row"><span class="spec-key">Capacity</span><span class="spec-val">4832 mAh</span></div>
+                <div class="spec-row"><span class="spec-key">Charging</span><span class="spec-val">20W</span></div>
+              </div>
+            </div>
+          </div>
+        </div><!-- /accordion -->
+      </div><!-- /card-body -->
+    </div><!-- /card -->
+  </div><!-- /tab-pane specs -->
+
+  <!-- Comments -->
+  <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+    <div class="card border-0 shadow-lg rounded-4" style="background:#0f172a;color:#f8fafc;">
+      <div class="card-body p-4 p-lg-5">
+        <h2 class="h4 fw-bold mb-4">Customer Reviews</h2>
+
+        <div class="vstack gap-3 mb-4">
+          <div class="p-3 rounded-3 comment-item">
+            <div class="d-flex align-items-center justify-content-between">
+              <strong>Ali</strong>
+              <div class="text-warning small">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+            </div>
+            <p class="mb-0 text-white-50 mt-2">Great screen and battery. Camera zoom is impressive.</p>
+          </div>
+          <div class="p-3 rounded-3 comment-item">
+            <div class="d-flex align-items-center justify-content-between">
+              <strong>Sara</strong>
+              <div class="text-warning small">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="far fa-star"></i><i class="far fa-star"></i>
+              </div>
+            </div>
+            <p class="mb-0 text-white-50 mt-2">Solid performance, wish charging was faster.</p>
+          </div>
+        </div>
+
+        <form class="row g-3" onsubmit="event.preventDefault(); submitReview();">
+          <div class="col-12 col-md-6">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control form-control-dark" id="revName" placeholder="Your name">
+          </div>
+          <div class="col-12 col-md-6">
+            <label class="form-label">Rating</label>
+            <select class="form-select form-select-dark" id="revRate">
+              <option value="5">★★★★★ (5)</option>
+              <option value="4">★★★★☆ (4)</option>
+              <option value="3">★★★☆☆ (3)</option>
+              <option value="2">★★☆☆☆ (2)</option>
+              <option value="1">★☆☆☆☆ (1)</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <label class="form-label">Comment</label>
+            <textarea class="form-control form-control-dark" id="revText" rows="3" placeholder="Write your comment..."></textarea>
+          </div>
+          <div class="col-12 d-grid d-sm-flex gap-2">
+            <button class="btn btn-primary"><i class="fas fa-paper-plane me-2"></i>Submit</button>
+            <button type="reset" class="btn btn-outline-light">Clear</button>
+          </div>
+        </form>
+
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+          <div id="reviewToast" class="toast text-bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+              <div class="toast-body">Your review was submitted ✅</div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /card-body -->
+    </div><!-- /card -->
+  </div><!-- /tab-pane comments -->
+
+</div><!-- /tab-content -->
+ 
+
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+'use strict';
+
+/* =========================
+   Helpers & State
+========================= */
+let cartItemCount = 0;
+const $  = (sel, root=document) => root.querySelector(sel);
+const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+/* =========================
+   RAM slider
+========================= */
+function updateRamValue(value) {
+  const el = $('#ramValue');
+  if (!el) return;
+  el.textContent = value;
+  el.classList.add('animate');
+  setTimeout(() => el.classList.remove('animate'), 300);
+}
+
+/* =========================
+   Color select
+========================= */
+function getSelectedColor() {
+  const active = $('.color-btn.active');
+  return active ? active.dataset.color : null;
+}
+document.addEventListener('DOMContentLoaded', () => {
+  const colorButtons = $$('.color-btn');
+  const colorValue = $('#colorValue');
+  colorButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      colorButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (colorValue) colorValue.textContent = btn.dataset.color;
+    });
+  });
+});
+
+/* =========================
+   Price card hydrate (MSRP/Price → Discount%)
+========================= */
+(function(){
+  const pc = $('.price-card');
+  if(!pc) return;
+  const msrp  = parseFloat(pc.dataset.msrp  || '0');
+  const price = parseFloat(pc.dataset.price || '0');
+  if(msrp > 0 && price > 0){
+    const pct = Math.round((1 - (price/msrp)) * 100);
+    const fmt = n => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const cur = $('#currentPrice');
+    const old = $('#oldPrice');
+    const dis = $('#discountPct');
+    if (cur) cur.textContent = `$${fmt(price)}`;
+    if (old) old.textContent = `${fmt(msrp)} USD`;
+    if (dis) dis.textContent = `-${pct}%`;
+  }
+})();
+
+/* =========================
+   Cart
+========================= */
+function updateCartNavCount() {
+  const navBadge = $('#cartCountNav');
+  if (navBadge) navBadge.textContent = String(cartItemCount);
+  const legacy = $('#cartCount'); // اگر نشانگر قدیمی هم داری
+  if (legacy) legacy.textContent = String(cartItemCount);
+}
+function addToCart(productName, price, image, options = {}) {
+  cartItemCount++;
+  updateCartNavCount();
+  const details = [
+    options.color ? `رنگ: ${options.color}` : null,
+    options.ram   ? `RAM: ${options.ram}GB` : null
+  ].filter(Boolean).join(' | ');
+  alert(`${productName} به سبد اضافه شد!\n${details}`);
+}
+function handleAddToCart() {
+  const color = getSelectedColor();
+  if (!color) { alert('لطفاً اول رنگ محصول را انتخاب کنید 🎨'); return; }
+  const ram = $('#ramValue')?.textContent || null;
+  addToCart('iPhone 17 Pro Max', 1170.99, 'download (7).jpg', { color, ram });
+}
+
+/* =========================
+   Wishlist (LocalStorage)
+========================= */
+(function(){
+  const STORAGE_KEY = 'wishlist';
+
+  const load   = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch { return []; } };
+  const save   = (list) => { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); updateCount(); };
+  const exists = (id) => load().some(x => x.id === id);
+  const add    = (item) => { const L = load(); if(!exists(item.id)){ L.push({...item, ts:Date.now()}); save(L); return true;} return false; };
+  const remove = (id) => save(load().filter(x => x.id !== id));
+
+  function updateWishlistNavCount(len) {
+    const navBadge = $('#wlCount');
+    const headerBadge = $('#wishlistCount');
+    if (navBadge)    navBadge.textContent    = String(len);
+    if (headerBadge) headerBadge.textContent = String(len);
+  }
+  function updateCount(){ updateWishlistNavCount(load().length); }
+
+  function setActive(btn){
+    btn.classList.remove('btn-outline-light');
+    btn.classList.add('btn-warning','text-dark');
+    const icon = btn.querySelector('i');     if(icon) icon.classList.replace('far','fas');
+    const txt  = btn.querySelector('.wl-text'); if(txt) txt.textContent = ' Saved';
+    btn.dataset.state = 'saved';
+  }
+  function setInactive(btn){
+    btn.classList.add('btn-outline-light');
+    btn.classList.remove('btn-warning','text-dark');
+    const icon = btn.querySelector('i');     if(icon) icon.classList.replace('fas','far');
+    const txt  = btn.querySelector('.wl-text'); if(txt) txt.textContent = ' Add to wishlist';
+    btn.dataset.state = '';
+  }
+
+  function toast(msg){
+    if (!window.bootstrap || !bootstrap.Toast){ alert(msg); return; }
+    let el = $('#wishlistToast');
+    if(!el){
+      const holder = document.createElement('div');
+      holder.className = 'position-fixed bottom-0 end-0 p-3';
+      holder.style.zIndex = 1080;
+      holder.innerHTML = `
+        <div id="wishlistToast" class="toast text-bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">${msg}</div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+                    data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>`;
+      document.body.appendChild(holder);
+      el = $('#wishlistToast');
+    } else {
+      el.querySelector('.toast-body').textContent = msg;
+    }
+    new bootstrap.Toast(el, { delay: 1400 }).show();
+  }
+
+  function toggle(btn){
+    const id = btn.dataset.productId;
+    if(!id) return;
+    const item = {
+      id,
+      name:  btn.dataset.productName  || '',
+      price: parseFloat(btn.dataset.productPrice || 0),
+      image: btn.dataset.productImage || ''
+    };
+    if(exists(id)){ remove(id); setInactive(btn); toast('Removed from wishlist'); }
+    else          { add(item);  setActive(btn);   toast('Added to wishlist ❤️'); }
+  }
+
+  function hydrateButtons(){
+    $$('.btn-wishlist').forEach(btn=>{
+      if(btn.dataset.productId && exists(btn.dataset.productId)) setActive(btn);
+      else setInactive(btn);
+      if(!btn._wlBound){ btn.addEventListener('click', ()=>toggle(btn)); btn._wlBound = true; }
+    });
+    updateCount();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hydrateButtons);
+  else hydrateButtons();
+})();
+
+/* =========================
+   Offcanvas blur + Theme switch
+========================= */
+(function(){
+  const oc = $('#megaOffcanvas');
+  if(oc){
+    oc.addEventListener('show.bs.offcanvas', ()=> document.body.classList.add('body-blur'));
+    oc.addEventListener('hidden.bs.offcanvas', ()=> document.body.classList.remove('body-blur'));
+  }
+  const KEY = 'mz-theme';
+  const switchEl = $('#themeSwitch');
+  const saved = localStorage.getItem(KEY) || 'dark';
+  document.documentElement.setAttribute('data-theme', saved);
+  if(switchEl) switchEl.checked = (saved === 'dark');
+  switchEl?.addEventListener('change', (e)=>{
+    const mode = e.target.checked ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', mode);
+    localStorage.setItem(KEY, mode);
+  });
+})();
+
+/* =========================
+   Ultra Nav: scroll shadow + search shortcut
+========================= */
+(function(){
+  const nav = $('.nav-ultra');
+  const onScroll = () => {
+    if (window.scrollY > 8) nav?.classList.add('nav-scrolled');
+    else nav?.classList.remove('nav-scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll);
+
+  const input = $('.nav-search input');
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === '/' && !['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) {
+      e.preventDefault();
+      const disc = $('#discountPct');
+      if (disc){ disc.classList.remove('bump'); void disc.offsetWidth; disc.classList.add('bump'); }
+      input?.focus();
+    }
+  });
+
+  // sync اولیه (اگر مقدار اولیه‌ای در DOM هست)
+  const wl = $('#wlCount');
+  const cart = $('#cartCountNav');
+  if (wl)   wl.textContent   = String(parseInt(wl.textContent || '0'));
+  if (cart) cart.textContent = String(parseInt(cart.textContent || '0'));
+})();
+
+/* =========================
+   Neon Clock (Navbar)
+
+========================= */
+(function(){
+  const el = $('#navClock .clock-text');
+  if (!el) return;
+  const fmtDate = new Intl.DateTimeFormat('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit' });
+  const fmtTime = new Intl.DateTimeFormat('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+  const tick = ()=>{ const now = new Date(); el.textContent = `${fmtDate.format(now)} • ${fmtTime.format(now)}`; };
+  tick(); setInterval(tick, 1000);
+})();
+
+/* =========================
+   Reviews (Toast)
+========================= */
+function submitReview(){
+  const name = $('#revName')?.value.trim();
+  const text = $('#revText')?.value.trim();
+  if(!name || !text){ alert('Please fill name and comment.'); return; }
+  const toastEl = $('#reviewToast');
+  if(window.bootstrap && toastEl){
+    new bootstrap.Toast(toastEl, { delay: 2200 }).show();
+  } else {
+    alert('Your review was submitted ✅');
+  }
+  document.querySelector('form[onsubmit]')?.reset();
+}
+
+/* =========================
+   Auth (Sign in / up mock) + Welcome banner
+========================= */
+const USER_KEY = 'mz-user';
+
+function setGuestMode(isGuest){
+  $$('.auth-guest').forEach(el => el.classList.toggle('d-none', !isGuest)); // دکمه‌های Sign in/Sign up
+  const signOut = $('#btnSignOut');  // دکمه خروج
+  if (signOut) signOut.classList.toggle('d-none', isGuest);
+}
+
+function hydrateUserBanner(){
+  const data = JSON.parse(localStorage.getItem(USER_KEY) || 'null');
+  const name = data?.name;
+  const ocWelcome = $('#ocWelcome');
+  const ocSub     = $('#ocSub');
+  if (ocWelcome && ocSub){
+    if (name){
+      ocWelcome.textContent = `Welcome, ${name}`;
+      ocSub.textContent     = 'Enjoy personalized deals';
+      setGuestMode(false);
+    } else {
+      ocWelcome.textContent = 'Welcome, Guest';
+      ocSub.textContent     = 'Sign in for better offers';
+      setGuestMode(true);
+    }
+  }
+}
+
+function handleSignOut(){
+  localStorage.removeItem(USER_KEY);
+  hydrateUserBanner();
+  const holder = document.createElement('div');
+  holder.className = 'position-fixed bottom-0 end-0 p-3'; holder.style.zIndex = 1080;
+  holder.innerHTML = `<div class="toast text-bg-dark"><div class="d-flex">
+    <div class="toast-body">Signed out ✅</div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+  </div></div>`;
+  document.body.appendChild(holder);
+  if (window.bootstrap?.Toast) new bootstrap.Toast(holder.querySelector('.toast'), {delay:1500}).show();
+  setTimeout(()=> holder.remove(), 1900);
+}
+
+function handleSignIn(e){
+  e?.preventDefault?.();
+  const email = ($('#siEmail')?.value || '').trim();
+  const name = email.split('@')[0] || 'User';
+  localStorage.setItem(USER_KEY, JSON.stringify({ name, email }));
+  hydrateUserBanner();
+  if (window.bootstrap?.Collapse) bootstrap.Collapse.getOrCreateInstance('#authPanel').hide?.();
+  // toast
+  const holder = document.createElement('div');
+  holder.className='position-fixed bottom-0 end-0 p-3'; holder.style.zIndex=1080;
+  holder.innerHTML = `<div class="toast text-bg-dark"><div class="d-flex">
+    <div class="toast-body">Signed in as ${name} ✅</div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+  </div></div>`;
+  document.body.appendChild(holder);
+  if(window.bootstrap?.Toast) new bootstrap.Toast(holder.querySelector('.toast'),{delay:1600}).show();
+  setTimeout(()=>holder.remove(), 1900);
+  return false;
+}
+
+function handleSignUp(e){
+  e?.preventDefault?.();
+  const first = ($('#suFirst')?.value || '').trim();
+  const last  = ($('#suLast')?.value  || '').trim();
+  const email = ($('#suEmail')?.value || '').trim();
+  const name = [first, last].filter(Boolean).join(' ') || email.split('@')[0] || 'User';
+  localStorage.setItem(USER_KEY, JSON.stringify({ name, email }));
+  hydrateUserBanner();
+  if (window.bootstrap?.Collapse) bootstrap.Collapse.getOrCreateInstance('#authPanel').hide?.();
+
+  const holder = document.createElement('div');
+  holder.className='position-fixed bottom-0 end-0 p-3'; holder.style.zIndex=1080;
+  holder.innerHTML = `<div class="toast text-bg-dark"><div class="d-flex">
+    <div class="toast-body">Account created. Welcome, ${name}! 🎉</div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+  </div></div>`;
+  document.body.appendChild(holder);
+  if(window.bootstrap?.Toast) new bootstrap.Toast(holder.querySelector('.toast'),{delay:1600}).show();
+  setTimeout(()=>holder.remove(), 1900);
+  return false;
+}
+
+// Bind once DOM is ready
+document.addEventListener('DOMContentLoaded', ()=>{
+  hydrateUserBanner();
+  $('#btnSignOut')?.addEventListener('click', handleSignOut);
+});
+
+// Toggle password visibility (for auth forms)
+function togglePass(id, btn){
+  const input = document.getElementById(id);
+  if(!input) return;
+  const isText = input.type === 'text';
+  input.type = isText ? 'password' : 'text';
+  const i = btn?.querySelector('i');
+  if(i){ i.classList.toggle('fa-eye'); i.classList.toggle('fa-eye-slash'); }
+}
+</script>
+
+
+
+
+
+</body>
+</html>
