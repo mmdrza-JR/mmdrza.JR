@@ -526,6 +526,25 @@ width:min(88vw,380px);
   opacity:.92;
 }
 .brand-group{ display:flex; align-items:center; gap:.5rem; }
+.nav-hamburger .dots{
+  display:flex;
+  gap:4px;
+  align-items:center;
+  justify-content:center;
+  height:14px;
+}
+.nav-hamburger .dot{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#e5e7eb;
+  box-shadow:0 0 8px rgba(59,130,246,.45);
+  transition:transform .2s ease, background .2s ease;
+}
+.nav-hamburger:hover .dot{
+  background:#3b82f6;
+  transform:scale(1.2);
+}
 
 	</style>
 </head>
@@ -534,16 +553,19 @@ width:min(88vw,380px);
   <div class="container-fluid px-3 px-lg-4">
     <!-- Brand -->
    <div class="brand-group">
-	   <button class="navbar-toggler nav-hamburger shadow-none border-0 d-inline-flex d-lg-none ms-2"
+	 <button class="navbar-toggler nav-hamburger shadow-none border-0 d-inline-flex d-lg-none ms-2"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#megaOffcanvas"
         aria-controls="megaOffcanvas"
         aria-label="Open menu">
-  <span class="bars" aria-hidden="true">
-    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  <span class="dots" aria-hidden="true">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
   </span>
 </button>
+
  <span class="brand-dot"></span> &nbsp;  
       <span class="fw-extrabold">mmdrza <span class="text-gradient">shop</span></span>
 <!-- کنار mmdrza shop -->
@@ -1625,6 +1647,7 @@ function togglePass(id, btn){
 
 </body>
 </html>
+
 
 
 
