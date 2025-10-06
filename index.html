@@ -24,10 +24,8 @@ body::before{
 ::-webkit-scrollbar-track{ background:#0f172a; border-radius:10px; }
 ::-webkit-scrollbar-thumb{ background:#0ea5e9; border-radius:10px; border:2px solid #0f172a; }
 ::-webkit-scrollbar-thumb:hover{ background:#3b82f6; }
-.navbar .navbar-toggler{ position:relative; z-index:1060; }
 
-/* ===== Navbar & basics (از کد خودت) ===== */
-/* اول این خط قدیمی رو حذف کن چون زشت می‌کنه:  .navbar-toggler{ background:#fff; color:#343a40; } */
+/* ===== Navbar & basics (از کد خودت) ===== *//* اول این خط قدیمی رو حذف کن چون زشت می‌کنه:  .navbar-toggler{ background:#fff; color:#343a40; } */
 
 /* دکمه‌ی شیشه‌ای گرد */
 .nav-hamburger{
@@ -102,11 +100,6 @@ body::before{
 .tab-content{
   width:100%; background:transparent; padding:30px;
   border-radius:0 0 15px 15px; box-shadow:0 4px 8px rgba(0,0,0,.05); margin-top:0;
-}
-.navbar .navbar-toggler,
-.btn-ghost[data-bs-toggle="offcanvas"]{
-  z-index:1060;
-  position:relative;
 }
 
 /* ===== Accordion / Specs ===== */
@@ -517,76 +510,6 @@ body::before{
 .nav-links .nav-link .fa-table-cells{
   opacity:.92;
 }
-/* --- Navbar: فیکس‌تاپ روی موبایل از بالا نیاد روی محتوا --- */
-@media (max-width: 991.98px){
-  body{ padding-top: 72px; }        /* اگر ارتفاع نوار تو بیشتره 80-90 بذار */
-}
-
-/* ناوبار روی موبایل: محتوا بشکنه و اسکرول بخوره */
-.navbar .navbar-collapse {
-  max-height: 75vh;                 /* وقتی باز میشه، قد بگیره ولی از صفحه بیرون نزنه */
-  overflow-y: auto;
-  padding: .5rem 0;
-}
-
-/* ساعت، سرچ و آیکن‌ها روی موبایل جمع‌وجور بشن */
-@media (max-width: 767.98px){
-  #navClock{ display:none !important; }      /* حذف ساعت در xs/sm */
-  .nav-search{ width: 100%; }                /* سرچ تمام‌عرض */
-  .nav-search .form-control{ width: 100%; }  /* ورودی جمع‌وجور */
-  .nav-links .nav-link{
-    display:block; width:100%;
-    padding:.55rem .9rem; border-radius:8px;
-  }
-  .nav-links{ gap:.25rem; }                  /* فاصله کمتر بین لینک‌ها */
-}
-
-/* از بریدن محتوا جلوگیری کن؛ لینک‌ها بتونن سطر بعدی برن */
-.navbar-nav{ flex-wrap: wrap; }
-
-/* آیکن‌ها در یک خط جا نشدن؟ اجازه بده برن زیر هم */
-@media (max-width: 575.98px){
-  .nav-ultra .d-flex.align-items-center.gap-2,
-  .nav-ultra .d-flex.align-items-center.gap-2 > *{
-    flex: 1 1 auto;
-  }
-}
-
-/* Dropdown (Categories) روی موبایل شیشه‌ای ولی بزرگ نشه */
-@media (max-width: 991.98px){
-  .dropdown-menu.mega-menu{
-    min-width: auto;
-    width: 100%;
-    left: 0 !important; right: 0 !important;
-    transform: none !important;
-    margin-top: .5rem;
-  }
-}
-
-/* تصاویر همیشه ریسپانسیو */
-img, .carousel-item img{
-  max-width: 100%;
-  height: auto;
-}
-
-/* کاروسل: ارتفاع مناسب موبایل و بدون بریده شدن عکس */
-#carouselexample .carousel-item{
-  aspect-ratio: 16/9;
-  background: #0b1220;
-}
-#carouselexample .carousel-item img{
-  width: 100%; height: 100%;
-  object-fit: contain; object-position: center;
-}
-
-/* دکمه‌ها و بَج‌ها کمی کوچک‌تر در موبایل */
-@media (max-width: 575.98px){
-  .btn-cta{ padding:.8rem 1rem; border-radius:10px; }
-  .badge-count{ min-width:18px; height:18px; font-size:.65rem; }
-}
-
-/* جلوگیری از افقی شدن اسکرول به خاطر عناصر خیلی عریض */
-html, body{ overflow-x: hidden; }
 
 	</style>
 </head>
@@ -595,13 +518,11 @@ html, body{ overflow-x: hidden; }
   <div class="container-fluid px-3 px-lg-4">
     <!-- Brand -->
    
-<a href="#" class="text-decoration-none text-white fw-extrabold logo-neon">
-  <span class="brand-dot"></span>&nbsp; mmdrza <span class="text-gradient">shop</span>
-</a>
-
+ <span class="brand-dot"></span> &nbsp;  
+      <span class="fw-extrabold">mmdrza <span class="text-gradient">shop</span></span>
 
     <!-- Toggler -->
-<!-- همون دکمه‌ی موجودت؛ فقط داخلش رو این بذار -->
+   <!-- همون دکمه‌ی موجودت؛ فقط داخلش رو این بذار -->
 <button class="navbar-toggler nav-hamburger shadow-none border-0" type="button"
         data-bs-toggle="collapse" data-bs-target="#navMain"
         aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
@@ -611,6 +532,7 @@ html, body{ overflow-x: hidden; }
     <span class="bar"></span>
   </span>
 </button>
+
 
     <!-- Collapsible -->
     <div class="collapse navbar-collapse" id="navMain">
@@ -671,12 +593,6 @@ html, body{ overflow-x: hidden; }
           <input type="text" class="form-control" placeholder="Search products…">
           <kbd class="shortcut d-none d-lg-inline">/</kbd>
         </div>
-<!-- کنار دکمه‌ی موبایل، همین‌جا بگذار -->
-<button class="btn btn-ghost d-none d-lg-inline-flex" type="button"
-        data-bs-toggle="offcanvas" data-bs-target="#megaOffcanvas"
-        aria-controls="megaOffcanvas" aria-label="Menu">
-  <i class="fa-solid fa-bars"></i>
-</button>
 
         <!-- Wishlist -->
         <a class="nav-icon" href="#" id="navWishlist">
@@ -699,6 +615,9 @@ html, body{ overflow-x: hidden; }
   </div>
 </nav>
 
+  <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#megaOffcanvas" aria-controls="megaOffcanvas" style="margin-top: 70px;">
+  <i class="fas fa-bars"></i>
+</button>
 
 <div class="offcanvas offcanvas-start mega-offcanvas" tabindex="-1" id="megaOffcanvas" aria-labelledby="megaOffcanvasLabel">
   <div class="offcanvas-header border-0">
@@ -933,13 +852,13 @@ html, body{ overflow-x: hidden; }
 
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="download (7).jpg" class="d-block w-100" alt="slide 1">
+            <img src="download (7).jpg" class="d-block w-30" alt="slide 1">
           </div>
           <div class="carousel-item">
-            <img src="download (1).jpg" class="d-block w-100" alt="slide 2">
+            <img src="download (1).jpg" class="d-block w-30" alt="slide 2">
           </div>
           <div class="carousel-item">
-            <img src="download.jpg" class="d-block w-100" alt="slide 3">
+            <img src="download.jpg" class="d-block w-30" alt="slide 3">
           </div>
         </div>
 
@@ -1547,19 +1466,17 @@ function handleAddToCart() {
    Reviews (Toast)
 ========================= */
 function submitReview(){
-  const form = document.querySelector('#comments form');
-  const name = document.getElementById('revName')?.value.trim();
-  const text = document.getElementById('revText')?.value.trim();
+  const name = $('#revName')?.value.trim();
+  const text = $('#revText')?.value.trim();
   if(!name || !text){ alert('Please fill name and comment.'); return; }
-  const toastEl = document.getElementById('reviewToast');
+  const toastEl = $('#reviewToast');
   if(window.bootstrap && toastEl){
     new bootstrap.Toast(toastEl, { delay: 2200 }).show();
   } else {
     alert('Your review was submitted ✅');
   }
-  form?.reset();            // ← مشخصاً همین فرم
+  document.querySelector('form[onsubmit]')?.reset();
 }
-
 
 /* =========================
    Auth (Sign in / up mock) + Welcome banner
@@ -1632,9 +1549,7 @@ function handleSignUp(e){
   const name = [first, last].filter(Boolean).join(' ') || email.split('@')[0] || 'User';
   localStorage.setItem(USER_KEY, JSON.stringify({ name, email }));
   hydrateUserBanner();
-  const panelEl = document.getElementById('authPanel');
-if (window.bootstrap?.Collapse && panelEl) {
-  bootstrap.Collapse.getOrCreateInstance(panelEl).hide();
+  if (window.bootstrap?.Collapse) bootstrap.Collapse.getOrCreateInstance('#authPanel').hide?.();
 
   const holder = document.createElement('div');
   holder.className='position-fixed bottom-0 end-0 p-3'; holder.style.zIndex=1080;
@@ -1671,6 +1586,7 @@ function togglePass(id, btn){
 
 </body>
 </html>
+
 
 
 
