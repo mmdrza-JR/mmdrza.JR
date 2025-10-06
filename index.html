@@ -277,6 +277,8 @@ body::before{
   background:var(--oc-bg); color:#f8fafc; border-right:1px solid var(--oc-border);
   backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:var(--oc-glow);
 width:min(88vw,380px);
+	top: var(--nav-h, 64px);
+  height: calc(100dvh - var(--nav-h, 64px));
 }
 .mega-offcanvas .offcanvas-header{ border-bottom:1px solid var(--oc-border); }
 .mega-offcanvas .btn-close{ filter:invert(1); }
@@ -523,6 +525,7 @@ width:min(88vw,380px);
 .nav-links .nav-link .fa-table-cells{
   opacity:.92;
 }
+.brand-group{ display:flex; align-items:center; gap:.5rem; }
 
 	</style>
 </head>
@@ -530,10 +533,21 @@ width:min(88vw,380px);
 <nav class="navbar navbar-expand-lg nav-ultra fixed-top">
   <div class="container-fluid px-3 px-lg-4">
     <!-- Brand -->
-   
+   <div class="brand-group">
  <span class="brand-dot"></span> &nbsp;  
       <span class="fw-extrabold">mmdrza <span class="text-gradient">shop</span></span>
-
+<!-- کنار mmdrza shop -->
+<button class="navbar-toggler nav-hamburger shadow-none border-0 d-inline-flex d-lg-none ms-2"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#megaOffcanvas"
+        aria-controls="megaOffcanvas"
+        aria-label="Open menu">
+  <span class="bars" aria-hidden="true">
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+  </span>
+</button>
+   </div>
     <!-- Toggler -->
     <!-- همون دکمه‌ی موجودت؛ فقط داخلش رو این بذار -->
 <button class="navbar-toggler nav-hamburger shadow-none border-0" type="button"
@@ -628,9 +642,7 @@ width:min(88vw,380px);
   </div>
 </nav>
 
-  <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#megaOffcanvas" aria-controls="megaOffcanvas" style="margin-top: 70px;">
-  <i class="fas fa-bars"></i>
-</button>
+ 
 
 <div class="offcanvas offcanvas-start mega-offcanvas" tabindex="-1" id="megaOffcanvas" aria-labelledby="megaOffcanvasLabel">
   <div class="offcanvas-header border-0">
@@ -1612,6 +1624,7 @@ function togglePass(id, btn){
 
 </body>
 </html>
+
 
 
 
