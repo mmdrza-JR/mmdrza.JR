@@ -546,7 +546,126 @@ width:min(88vw,380px);
   background:#3b82f6;
   transform:scale(1.2);
 }
+.color-chip{
+  width:60px;height:60px;border-radius:50%;
+  border:3px solid transparent;
+  box-shadow:0 0 10px rgba(255,255,255,.15);
+  transition:.3s ease;
+}
+.color-chip.active{
+  box-shadow:0 0 25px 6px rgba(59,130,246,.5);
+  border-color:#3b82f6;
+  transform:scale(1.15);
+}
 
+.option-btn{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+  color:#f8fafc; font-weight:600;
+  border-radius:10px;
+  transition:.25s ease;
+}
+.option-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px rgba(14,165,233,.3);
+}
+.option-btn.active {
+  background: linear-gradient(90deg,#0ea5e9,#3b82f6);
+  border: none;
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(14,165,233,.7), 0 0 60px rgba(14,165,233,.35);
+  animation: neonPulse 0.7s ease;
+}
+
+@keyframes neonPulse {
+  0% { box-shadow: 0 0 0 rgba(14,165,233,0); }
+  50% { box-shadow: 0 0 45px rgba(14,165,233,.9); }
+  100% { box-shadow: 0 0 20px rgba(14,165,233,.6); }
+}
+
+
+.btn-cta.added {
+  animation: cartPulse .6s ease;
+}
+@keyframes cartPulse {
+  0% { transform: scale(1); box-shadow:0 0 0 rgba(14,165,233,0.6);}
+  40% { transform: scale(1.15); box-shadow:0 0 40px rgba(14,165,233,0.8);}
+  100% { transform: scale(1); box-shadow:0 0 0 rgba(14,165,233,0);}
+}
+/* 🌈 SuperStar Carousel Glow */
+#carouselexample img{
+  transition: transform .6s ease, opacity .6s ease, filter .6s ease;
+  border-radius:16px;
+}
+#carouselexample img:hover{
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 20px rgba(14,165,233,.35));
+}
+/* 🎧 Pulse after sound */
+.btn-cta.added {
+  animation: cartPulse .6s ease, buzz 0.4s ease-in-out;
+}
+@keyframes buzz {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+/* ✨ Flash Pulse هنگام افزودن به سبد */
+body.flash::after{
+  content:"";
+  position:fixed; inset:0;
+  background:radial-gradient(circle at center, rgba(14,165,233,.3), transparent 70%);
+  pointer-events:none;
+  animation: flashPulse .5s ease forwards;
+  z-index:9999;
+}
+@keyframes flashPulse{
+  0%{opacity:1;}
+  100%{opacity:0;}
+}
+/* 🛒 AddToCart Glow */
+button[onclick="handleAddToCart()"] {
+  transition: all .3s ease;
+  border: none;
+  box-shadow: 0 0 0 rgba(14,165,233,0);
+}
+button[onclick="handleAddToCart()"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(14,165,233,.6);
+}
+/* 🌈 Phone Image Glow */
+#carouselexample img {
+  transition: all .6s ease;
+  filter: drop-shadow(0 0 30px rgba(59,130,246,.2));
+  border-radius: 16px;
+}
+#carouselexample img:hover {
+  transform: scale(1.03);
+  filter: drop-shadow(0 0 50px rgba(14,165,233,.35));
+}
+/* ❤️ Heart active حالت */
+.wishlist-btn.active i {
+  color: #ef4444 !important;
+  text-shadow: 0 0 20px rgba(239,68,68,.6);
+  animation: heartPulse .8s ease;
+}
+@keyframes heartPulse {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.4); }
+  100% { transform: scale(1); }
+}
+
+/* 💫 پارتیکل‌ها */
+.wish-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3000;
+}
 
 	</style>
 </head>
@@ -951,12 +1070,13 @@ width:min(88vw,380px);
             <i class="fas fa-shopping-cart me-2"></i> Add to Cart
           </button>
 <button
-  class="btn btn-outline-light w-100 btn-wishlist"
+  class="btn btn-outline-light w-100 wishlist-btn"
   data-product-id="iphone17pro256zaa"
   data-product-name="iPhone 17 Pro Max 256GB/ZAA"
   data-product-price="1170.99"
   data-product-image="download (7).jpg"
   style="border-radius:12px;"
+  onclick="handleWishlist(this)"
 >
   <i class="far fa-heart me-2"></i><span class="wl-text"> Add to wishlist</span>
 </button>
@@ -965,66 +1085,66 @@ width:min(88vw,380px);
        
       </div>
     </div>
-  </div>
-</div>
-<section class="container my-5">
-  <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
-      <div class="card shadow-lg border-0 p-4 text-center" style="background:#0f172a;color:#f8fafc;border-radius:1rem;">
-        <h5 class="mb-3">
-          <i class="fas fa-palette me-2 text-warning"></i>
-          Choose Color
-        </h5>
+<!-- ⚡ Super Configurator -->
+<section id="superConfigurator" class="container my-5">
+  <div class="card p-4 rounded-4 shadow-lg border-0" 
+       style="background:#0b1220;color:#f8fafc;overflow:hidden;position:relative;">
 
+    <div class="text-center mb-4">
+      <h3 class="fw-bold mb-2 text-gradient"><i class="fa-solid fa-sliders me-2"></i> Customize Your iPhone 17 Pro Max</h3>
+      <small class="text-white-50">Select color, RAM, and storage — watch the price react ⚡</small>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- 🎨 Color -->
+      <div class="col-12 col-md-4 text-center">
+        <h6 class="mb-3 text-info"><i class="fa-solid fa-palette me-1"></i> Color</h6>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-          <!-- دکمه‌های رنگ -->
-          <button class="btn btn-outline-light rounded-circle color-btn" data-color="Black" style="width:50px;height:50px;background:black;"></button>
-          <button class="btn btn-outline-light rounded-circle color-btn" data-color="White" style="width:50px;height:50px;background:white;"></button>
-          <button class="btn btn-outline-light rounded-circle color-btn" data-color="Orange" style="width:50px;height:50px;background:orange;"></button>
-        </div>
-
-        <div class="mt-3">
-          <span class="fw-bold">Selected Color:
-
-            <span id="colorValue" class="text-warning">None</span>
-          </span>
+          <button class="btn color-chip" data-color="Black" style="background:black;"></button>
+          <button class="btn color-chip" data-color="White" style="background:white;"></button>
+          <button class="btn color-chip" data-color="Orange" style="background:orange;"></button>
+          <button class="btn color-chip" data-color="DeepBlue" style="background:deepskyblue;"></button>
         </div>
       </div>
+
+      <!-- ⚙️ RAM -->
+      <div class="col-12 col-md-4 text-center">
+        <h6 class="mb-3 text-warning"><i class="fa-solid fa-memory me-1"></i> RAM</h6>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <button class="btn option-btn" data-ram="6">6 GB</button>
+          <button class="btn option-btn" data-ram="8">8 GB</button>
+          <button class="btn option-btn" data-ram="12">12 GB</button>
+        </div>
+      </div>
+
+      <!-- 💾 Storage -->
+      <div class="col-12 col-md-4 text-center">
+        <h6 class="mb-3 text-success"><i class="fa-solid fa-sd-card me-1"></i> Storage</h6>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <button class="btn option-btn" data-storage="128">128 GB</button>
+          <button class="btn option-btn" data-storage="256">256 GB</button>
+          <button class="btn option-btn" data-storage="512">512 GB</button>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4 border-secondary">
+
+    <!-- 💰 Dynamic price -->
+    <div class="text-center">
+      <div class="fs-1 fw-bold" id="dynamicPrice" 
+           style="transition:transform .5s ease, color .5s ease; color:#3b82f6;">
+        $1,170.99
+      </div>
+      <small class="text-white-50">
+        Base: iPhone 17 Pro Max 256GB / 6GB RAM
+      </small>
     </div>
   </div>
 </section>
 
-<section class="container my-5">
-  <div class="row justify-content-center">
-   
-    <div class="col-12 col-md-8 col-lg-6">
-      <div class="card shadow-lg border-0 p-4 text-center" style="background:#0f172a;color:#f8fafc;border-radius:1rem;">
-        <h5 class="mb-4">
-          <i class="fas fa-memory me-2 text-info"></i>
-          Adjust your RAM
-        </h5>
 
-        <label for="customrange" class="form-label mb-1">
-          <small class="text-white-50">Min: 6GB • Max: 12GB</small>
-        </label>
-
-        <input
-          type="range"
-          class="form-range custom-range"
-          id="customrange"
-          min="6" max="12" step="2"
-          oninput="updateRamValue(this.value)"
-        >
-
-        <div class="mt-3">
-          <span class="fw-bold">Your chosen RAM:
-            <span id="ramValue" class="text-info fs-4">6</span> GB
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 
@@ -1286,24 +1406,6 @@ let cartItemCount = 0;
 const $  = (sel, root=document) => root.querySelector(sel);
 const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
 
-/* =========================
-   RAM slider
-========================= */
-function updateRamValue(value) {
-  const el = $('#ramValue');
-  if (!el) return;
-  el.textContent = value;
-  el.classList.add('animate');
-  setTimeout(() => el.classList.remove('animate'), 300);
-}
-
-/* =========================
-   Color select
-========================= */
-function getSelectedColor() {
-  const active = $('.color-btn.active');
-  return active ? active.dataset.color : null;
-}
 document.addEventListener('DOMContentLoaded', () => {
   const colorButtons = $$('.color-btn');
   const colorValue = $('#colorValue');
@@ -1345,23 +1447,87 @@ function updateCartNavCount() {
   const legacy = $('#cartCount'); // اگر نشانگر قدیمی هم داری
   if (legacy) legacy.textContent = String(cartItemCount);
 }
-function addToCart(productName, price, image, options = {}) {
+/* =========================
+   🛒 Super Add To Cart Ultra
+   - افکت پالس، نور نئون، پرتاب محصول به سبد
+========================= */
+function handleAddToCart() {
+  const addBtn = document.querySelector('button[onclick="handleAddToCart()"]');
+  const cartIcon = document.querySelector('#cartCountNav') || document.querySelector('#cartCount');
+  const productImg = document.querySelector('.carousel-item.active img');
+  const toastContainer = document.getElementById('cartToastContainer') || createToastContainer();
+
+  // 1️⃣ افکت پالس و لرزش روی دکمه
+  addBtn.animate([
+    { transform:'scale(1)', boxShadow:'0 0 0 rgba(14,165,233,0)' },
+    { transform:'scale(1.15)', boxShadow:'0 0 25px rgba(14,165,233,.9)' },
+    { transform:'scale(1)', boxShadow:'0 0 0 rgba(14,165,233,0)' }
+  ], { duration:500, easing:'ease-out' });
+
+  // 2️⃣ ساخت تصویر پرتابی
+  if(productImg && cartIcon){
+    const flyingImg = productImg.cloneNode(true);
+    const imgRect = productImg.getBoundingClientRect();
+    const cartRect = cartIcon.getBoundingClientRect();
+    flyingImg.style.position = 'fixed';
+    flyingImg.style.left = imgRect.left + 'px';
+    flyingImg.style.top = imgRect.top + 'px';
+    flyingImg.style.width = imgRect.width + 'px';
+    flyingImg.style.height = imgRect.height + 'px';
+    flyingImg.style.transition = 'all .8s cubic-bezier(.45,.1,.15,1)';
+    flyingImg.style.zIndex = 2000;
+    flyingImg.style.borderRadius = '20px';
+    flyingImg.style.boxShadow = '0 0 40px rgba(59,130,246,.6)';
+    document.body.appendChild(flyingImg);
+
+    // شروع حرکت
+    setTimeout(()=>{
+      flyingImg.style.left = cartRect.left + 'px';
+      flyingImg.style.top = cartRect.top + 'px';
+      flyingImg.style.width = '40px';
+      flyingImg.style.height = '40px';
+      flyingImg.style.opacity = '0';
+      flyingImg.style.transform = 'rotate(360deg)';
+    },50);
+
+    // حذف بعد از پرتاب
+    setTimeout(()=> flyingImg.remove(),900);
+  }
+
+  // 3️⃣ به‌روزرسانی شمارش سبد
   cartItemCount++;
   updateCartNavCount();
-  const details = [
-    options.color ? `رنگ: ${options.color}` : null,
-    options.ram   ? `RAM: ${options.ram}GB` : null
-  ].filter(Boolean).join(' | ');
-  alert(`${productName} به سبد اضافه شد!\n${details}`);
-}
-function handleAddToCart() {
-  const color = getSelectedColor();
-  if (!color) { alert('لطفاً اول رنگ محصول را انتخاب کنید 🎨'); return; }
-  const ram = $('#ramValue')?.textContent || null;
-  addToCart('iPhone 17 Pro Max', 1170.99, 'download (7).jpg', { color, ram });
+
+  // 4️⃣ Toast اعلان موفقیت
+  showCartToast(toastContainer, '🛒 Added to Cart Successfully!');
 }
 
-/* =========================
+// ساخت کانتینر toast
+function createToastContainer(){
+  const div = document.createElement('div');
+  div.id = 'cartToastContainer';
+  div.className = 'position-fixed bottom-0 end-0 p-3';
+  div.style.zIndex = 2005;
+  document.body.appendChild(div);
+  return div;
+}
+
+// تابع نمایش toast
+function showCartToast(container, msg){
+  const toast = document.createElement('div');
+  toast.className = 'toast text-bg-dark border-0 show fade';
+  toast.innerHTML = `
+    <div class="d-flex align-items-center">
+      <div class="toast-body fw-semibold">${msg}</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  `;
+  container.appendChild(toast);
+  setTimeout(()=> toast.classList.add('show'),100);
+  setTimeout(()=> toast.remove(),3000);
+}
+
+/* ========================
    Wishlist (LocalStorage)
 ========================= */
 (function(){
@@ -1373,77 +1539,104 @@ function handleAddToCart() {
   const add    = (item) => { const L = load(); if(!exists(item.id)){ L.push({...item, ts:Date.now()}); save(L); return true;} return false; };
   const remove = (id) => save(load().filter(x => x.id !== id));
 
-  function updateWishlistNavCount(len) {
-    const navBadge = $('#wlCount');
-    const headerBadge = $('#wishlistCount');
-    if (navBadge)    navBadge.textContent    = String(len);
-    if (headerBadge) headerBadge.textContent = String(len);
-  }
-  function updateCount(){ updateWishlistNavCount(load().length); }
+  // ❤️ Super Wishlist Ultra FX
+  function handleWishlist(btn){
+    const heartIcon = document.querySelector('#navWishlist i');
+    const productImg = document.querySelector('.carousel-item.active img');
+    const toastContainer = document.getElementById('wishToastContainer') || createWishToastContainer();
 
-  function setActive(btn){
-    btn.classList.remove('btn-outline-light');
-    btn.classList.add('btn-warning','text-dark');
-    const icon = btn.querySelector('i');     if(icon) icon.classList.replace('far','fas');
-    const txt  = btn.querySelector('.wl-text'); if(txt) txt.textContent = ' Saved';
-    btn.dataset.state = 'saved';
-  }
-  function setInactive(btn){
-    btn.classList.add('btn-outline-light');
-    btn.classList.remove('btn-warning','text-dark');
-    const icon = btn.querySelector('i');     if(icon) icon.classList.replace('fas','far');
-    const txt  = btn.querySelector('.wl-text'); if(txt) txt.textContent = ' Add to wishlist';
-    btn.dataset.state = '';
-  }
+    btn.animate([
+      { transform:'scale(1)', filter:'brightness(1)' },
+      { transform:'scale(1.4)', filter:'brightness(1.5)' },
+      { transform:'scale(1)', filter:'brightness(1)' }
+    ], { duration:400, easing:'ease-out' });
 
-  function toast(msg){
-    if (!window.bootstrap || !bootstrap.Toast){ alert(msg); return; }
-    let el = $('#wishlistToast');
-    if(!el){
-      const holder = document.createElement('div');
-      holder.className = 'position-fixed bottom-0 end-0 p-3';
-      holder.style.zIndex = 1080;
-      holder.innerHTML = `
-        <div id="wishlistToast" class="toast text-bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
-          <div class="d-flex">
-            <div class="toast-body">${msg}</div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                    data-bs-dismiss="toast" aria-label="Close"></button>
-          </div>
-        </div>`;
-      document.body.appendChild(holder);
-      el = $('#wishlistToast');
-    } else {
-      el.querySelector('.toast-body').textContent = msg;
+    btn.classList.toggle('active');
+    const added = btn.classList.contains('active');
+    btn.querySelector('i').style.color = added ? '#ef4444' : '#94a3b8';
+    if(added) spawnParticles(btn);
+
+    // پرتاب قلب به نوار
+    if(added && heartIcon && productImg){
+      const flyingHeart = btn.querySelector('i').cloneNode(true);
+      const heartRect = btn.getBoundingClientRect();
+      const navRect = heartIcon.getBoundingClientRect();
+      flyingHeart.style.position = 'fixed';
+      flyingHeart.style.left = heartRect.left + 'px';
+      flyingHeart.style.top = heartRect.top + 'px';
+      flyingHeart.style.fontSize = '24px';
+      flyingHeart.style.color = '#ef4444';
+      flyingHeart.style.transition = 'all .9s cubic-bezier(.45,.1,.15,1)';
+      flyingHeart.style.zIndex = 3000;
+      document.body.appendChild(flyingHeart);
+      setTimeout(()=>{
+        flyingHeart.style.left = navRect.left + 'px';
+        flyingHeart.style.top = navRect.top + 'px';
+        flyingHeart.style.opacity = '0';
+        flyingHeart.style.transform = 'scale(0)';
+      },30);
+      setTimeout(()=> flyingHeart.remove(),900);
     }
-    new bootstrap.Toast(el, { delay: 1400 }).show();
+
+    showWishToast(toastContainer, added ? '❤️ Added to Wishlist' : '💔 Removed from Wishlist');
+    // ✅ به‌روزرسانی عدد بالای نوار
+const wlBadge = document.getElementById('wlCount');
+if (wlBadge) {
+  let count = parseInt(wlBadge.textContent) || 0;
+  wlBadge.textContent = added ? count + 1 : Math.max(0, count - 1);
+}
+
   }
 
-  function toggle(btn){
-    const id = btn.dataset.productId;
-    if(!id) return;
-    const item = {
-      id,
-      name:  btn.dataset.productName  || '',
-      price: parseFloat(btn.dataset.productPrice || 0),
-      image: btn.dataset.productImage || ''
-    };
-    if(exists(id)){ remove(id); setInactive(btn); toast('Removed from wishlist'); }
-    else          { add(item);  setActive(btn);   toast('Added to wishlist ❤️'); }
+  // پارتیکل‌ها
+  function spawnParticles(btn){
+    for(let i=0; i<8; i++){
+      const p = document.createElement('div');
+      p.className = 'wish-particle';
+      const rect = btn.getBoundingClientRect();
+      p.style.left = rect.left + 10 + 'px';
+      p.style.top = rect.top + 10 + 'px';
+      p.style.background = `hsl(${Math.random()*360},80%,60%)`;
+      document.body.appendChild(p);
+      const x = (Math.random()-0.5)*120;
+      const y = (Math.random()-0.5)*120;
+      p.animate([
+        { transform:`translate(0,0) scale(1)`, opacity:1 },
+        { transform:`translate(${x}px,${y}px) scale(0)`, opacity:0 }
+      ], { duration:800, easing:'ease-out' });
+      setTimeout(()=>p.remove(),800);
+    }
   }
 
-  function hydrateButtons(){
-    $$('.btn-wishlist').forEach(btn=>{
-      if(btn.dataset.productId && exists(btn.dataset.productId)) setActive(btn);
-      else setInactive(btn);
-      if(!btn._wlBound){ btn.addEventListener('click', ()=>toggle(btn)); btn._wlBound = true; }
-    });
-    updateCount();
+  function createWishToastContainer(){
+    const div = document.createElement('div');
+    div.id = 'wishToastContainer';
+    div.className = 'position-fixed bottom-0 end-0 p-3';
+    div.style.zIndex = 2005;
+    document.body.appendChild(div);
+    return div;
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', hydrateButtons);
-  else hydrateButtons();
-})();
+  function showWishToast(container, msg){
+    const toast = document.createElement('div');
+    toast.className = 'toast text-bg-dark border-0 show fade';
+    toast.innerHTML = `
+      <div class="d-flex align-items-center">
+        <div class="toast-body fw-semibold">${msg}</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    `;
+    container.appendChild(toast);
+    setTimeout(()=> toast.classList.add('show'),100);
+    setTimeout(()=> toast.remove(),3000);
+  }
+
+  // ✅ اضافه به window تا از HTML قابل صدا باشه
+  window.handleWishlist = handleWishlist;
+
+})(); 
+
+
 
 /* =========================
    Offcanvas blur + Theme switch
@@ -1636,6 +1829,266 @@ function togglePass(id, btn){
   const coll = document.getElementById('navMain');
   if (coll){ ['shown.bs.collapse','hidden.bs.collapse'].forEach(evt=> coll.addEventListener(evt, computeNavHeight)); }
 })();
+/* =========================
+   Super Configurator Animation
+========================= */
+
+/* =========================
+   🌈 Super Configurator Ultra 2.0
+   - انیمیشن قیمت، نئون گلو، ویبره رنگ و پالس شیشه‌ای
+========================= */
+(function(){
+  const priceEl = document.getElementById('dynamicPrice');
+  const colorBtns = document.querySelectorAll('.color-chip');
+  const ramBtns = document.querySelectorAll('.option-btn[data-ram]');
+  const storageBtns = document.querySelectorAll('.option-btn[data-storage]');
+
+  let config = { color:null, ram:6, storage:256, base:1170.99 };
+  const basePrices = {128:-100,256:0,512:150};
+  const ramPrices = {6:0,8:80,12:180};
+
+  function updatePriceAnimation(){
+    const final = config.base + (ramPrices[config.ram]||0) + (basePrices[config.storage]||0);
+    const oldPrice = parseFloat(priceEl.textContent.replace(/[$,]/g,'')) || config.base;
+    const diff = final - oldPrice;
+
+    priceEl.animate([
+      { transform:'scale(1) rotate(0deg)', color:'#3b82f6' },
+      { transform:'scale(1.25) rotate(2deg)', color:'#0ea5e9' },
+      { transform:'scale(1) rotate(0deg)', color:'#3b82f6' }
+    ], { duration:500, easing:'ease-out' });
+
+    const animDuration = 400;
+    let start = null;
+    function animateNum(ts){
+      if(!start) start = ts;
+      const progress = Math.min((ts-start)/animDuration,1);
+      const current = oldPrice + diff*progress;
+      priceEl.textContent = `$${current.toLocaleString('en-US',{minimumFractionDigits:2})}`;
+      if(progress<1) requestAnimationFrame(animateNum);
+    }
+    requestAnimationFrame(animateNum);
+  }
+
+  // 🌈 رنگ‌ها
+  colorBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      colorBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      config.color = btn.dataset.color;
+
+      // افکت نور نئون روی کل صفحه
+      document.body.animate([
+        { boxShadow:'0 0 0px rgba(0,0,0,0)' },
+        { boxShadow:`0 0 80px 25px ${btn.style.backgroundColor}` },
+        { boxShadow:'0 0 0px rgba(0,0,0,0)' }
+      ], { duration:700, easing:'ease-out' });
+
+      updatePriceAnimation();
+    });
+  });
+
+  // ⚙️ RAM
+  ramBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      ramBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      config.ram = parseInt(btn.dataset.ram);
+      btn.animate([
+        { transform:'scale(1)', boxShadow:'none' },
+        { transform:'scale(1.2)', boxShadow:'0 0 25px rgba(59,130,246,.7)' },
+        { transform:'scale(1)', boxShadow:'none' }
+      ], { duration:400, easing:'ease-out' });
+      updatePriceAnimation();
+    });
+  });
+
+  // 💾 Storage
+  storageBtns.forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      storageBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      config.storage = parseInt(btn.dataset.storage);
+      btn.animate([
+        { transform:'scale(1)', filter:'brightness(1)' },
+        { transform:'scale(1.25)', filter:'brightness(1.4)' },
+        { transform:'scale(1)', filter:'brightness(1)' }
+      ], { duration:400, easing:'ease-out' });
+      updatePriceAnimation();
+    });
+  });
+})();
+
+/* =========================
+   Super Configurator → Add to Cart Sync
+========================= */
+(function(){
+  const addBtn = document.querySelector('button[onclick="handleAddToCart()"]');
+  if (!addBtn) return;
+  
+  const priceEl = document.getElementById('dynamicPrice');
+  const colorBtns = document.querySelectorAll('.color-chip');
+  const ramBtns   = Array.from(document.querySelectorAll('.option-btn[data-ram]'));
+  const storageBtns = Array.from(document.querySelectorAll('.option-btn[data-storage]'));
+  
+  addBtn.addEventListener('click', ()=>{
+    const colorBtn = Array.from(colorBtns).find(b=>b.classList.contains('active'));
+    const ramBtn   = ramBtns.find(b=>b.classList.contains('active'));
+    const storageBtn = storageBtns.find(b=>b.classList.contains('active'));
+    
+    if(!colorBtn || !ramBtn || !storageBtn){
+      alert('⚠️ لطفاً رنگ، RAM و Storage را انتخاب کنید.');
+      return;
+    }
+
+    // قیمت فعلی از نمایشگر بخون
+    const priceText = priceEl.textContent.replace(/[$,]/g,'');
+    const price = parseFloat(priceText) || 0;
+
+    const color = colorBtn.dataset.color;
+    const ram = ramBtn.dataset.ram;
+    const storage = storageBtn.dataset.storage;
+
+    // استفاده از تابع اصلی addToCart از بالای کدت
+    addToCart(`iPhone 17 Pro Max ${storage}GB / ${ram}GB`, price, `images/photo.png`, {
+      color, ram, storage
+    });
+
+    // ✨ افکت اضافه شدن به سبد
+    addBtn.classList.add('added');
+    document.body.classList.add('flash');
+setTimeout(()=> document.body.classList.remove('flash'), 500);
+
+    setTimeout(()=> addBtn.classList.remove('added'), 700);
+  });
+})();
+/* =========================
+   SuperStar Image Transition 🌈
+========================= */
+/* =========================
+   🎨 Super Color-Image Transition 3D Ultra
+========================= */
+(function(){
+  const colorBtns = document.querySelectorAll('.color-chip');
+  const carouselImg = document.querySelector('#carouselexample .carousel-item.active img');
+  const carouselInner = document.querySelector('#carouselexample .carousel-inner');
+
+  if(!carouselImg || !carouselInner) return;
+
+  // نگاشت رنگ → تصویر مربوط
+  const colorImages = {
+    Black: 'images/iphone_black.png',
+    White: 'images/iphone_white.png',
+    Orange: 'images/iphone_orange.png',
+    DeepBlue: 'images/iphone_blue.png'
+  };
+
+  function changePhoneImage(colorKey){
+    const newSrc = colorImages[colorKey];
+    if(!newSrc) return;
+
+    // افکت لایه محو رنگی
+    const overlay = document.createElement('div');
+    overlay.style.position = 'absolute';
+    overlay.style.inset = 0;
+    overlay.style.zIndex = 10;
+    overlay.style.background = `radial-gradient(circle at center, rgba(14,165,233,.2), transparent 70%)`;
+    overlay.style.opacity = 0;
+    overlay.style.transition = 'opacity .4s ease';
+    carouselInner.style.position = 'relative';
+    carouselInner.appendChild(overlay);
+    requestAnimationFrame(()=> overlay.style.opacity = 1);
+
+    // fade و scale عکس قدیمی
+    carouselImg.style.transition = 'opacity .45s ease, transform .6s ease';
+    carouselImg.style.opacity = '0';
+    carouselImg.style.transform = 'scale(1.05) rotateY(10deg)';
+
+    setTimeout(()=>{
+      carouselImg.src = newSrc;
+      carouselImg.onload = ()=>{
+        carouselImg.style.opacity = '1';
+        carouselImg.style.transform = 'scale(1) rotateY(0deg)';
+        overlay.remove();
+      };
+    }, 450);
+  }
+
+  colorBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const colorKey = btn.dataset.color;
+      changePhoneImage(colorKey);
+    });
+  });
+})();
+
+/* =========================
+   🎧 SuperStar Sound System (v2)
+========================= */
+(function(){
+  // صداها
+  const soundClick = new Audio('https://cdn.jsdelivr.net/gh/mmdrza-audio/mixkit-modern-technology-select-3124.mp3');
+const soundAdd   = new Audio('https://cdn.jsdelivr.net/gh/mmdrza-audio/mixkit-quick-win-video-game-notification-269.mp3');
+
+  soundClick.volume = 0.45;
+  soundAdd.volume   = 0.55;
+
+  // جلوگیری از خطا در مرورگرهایی که autoplay محدود دارن
+  function safePlay(audio){
+    try{
+      audio.currentTime = 0;
+      const playPromise = audio.play();
+      if(playPromise) playPromise.catch(()=>{/* سکوت اگر کاربر هنوز کلیک نکرده */});
+    }catch{}
+  }
+
+  // 🎨 صدای انتخاب رنگ / رم / استوریج
+  document.querySelectorAll('.color-chip, .option-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=> safePlay(soundClick));
+  });
+
+  // 🛒 صدای افزودن به سبد خرید
+  const addBtn = document.querySelector('button[onclick="handleAddToCart()"]');
+  if(addBtn){
+    addBtn.addEventListener('click', ()=> safePlay(soundAdd));
+  }
+
+  // 🚫 هشدار اگر مرورگر اجازه پخش صدا نداد
+  window.addEventListener('DOMContentLoaded', ()=>{
+    soundClick.play().catch(()=>{
+      const toast = document.createElement('div');
+      toast.className = 'position-fixed bottom-0 end-0 p-3';
+      toast.style.zIndex = 1080;
+      toast.innerHTML = `
+        <div class="toast text-bg-dark border-0" id="audioToast">
+          <div class="d-flex align-items-center">
+            <div class="toast-body">
+              🔇 Sound disabled — tap anywhere to enable audio.
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+          </div>
+        </div>`;
+      document.body.appendChild(toast);
+      if(window.bootstrap?.Toast) new bootstrap.Toast('#audioToast', {delay:4000}).show();
+
+      // اولین کلیک کاربر → اجازه پخش صدا
+      const enableSound = ()=>{
+        safePlay(soundClick);
+        document.removeEventListener('click', enableSound);
+      };
+      document.addEventListener('click', enableSound);
+    });
+  });
+})();
+window.addEventListener('click', function enableAudio(){
+  try {
+    const clickSound = new Audio('sounds/mixkit-modern-technology-select-3124.mp3');
+    clickSound.volume = 0;
+    clickSound.play().catch(()=>{});
+  } catch {}
+  window.removeEventListener('click', enableAudio);
+});
+
 
 </script>
 
@@ -1645,7 +2098,6 @@ function togglePass(id, btn){
 
 </body>
 </html>
-
 
 
 
